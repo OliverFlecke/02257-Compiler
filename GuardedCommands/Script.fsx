@@ -75,15 +75,15 @@ let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
 let str = "begin function f (x : int) : int = print x; x:= f(2) end"
 // printTokens (getBuffer str)
 let tree = parseFromFile "Ex7.gc";;
-// let _ = tcP tree;;
-// printfn "Type checking passed"
-// printfn ""
+let _ = tcP tree;;
+printfn "Type checking passed"
+printfn ""
 
 // let code = CP tree;;
 // // let _ = go tree;;
 // // let _ = goTrace tree;;
 
-// let _ = exec "Ex7.gc"
+let _ = exec "Ex7.gc"
 
 
 // Test of programs covered by the first task (Section 3.7):

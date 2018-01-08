@@ -19,7 +19,10 @@ module TypeCheck =
 
          | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&"]        
                             -> tcDyadic gtenv ltenv f e1 e2   
-
+         | Apply (f, vs)    -> 
+            match Map.tryFind f gtenv with 
+                | Some t    -> t
+                | None      -> failwith ("Function " + string f + " is undefined")
          | x                -> failwith ("tcE: not supported yet" + string x)
 
    and tcMonadic gtenv ltenv f e = match (f, tcE gtenv ltenv e) with
@@ -65,12 +68,41 @@ module TypeCheck =
             if List.forall (fst >> tcE gtenv ltenv >> (=)BTyp) gc 
               then ()
               else failwith "tcS: If is expression, expected boolean"
+      | Return e        -> Option.map (tcE gtenv ltenv) e |> ignore
       | _               -> failwith "tcS: this statement is not supported yet"
 
    and tcGDec gtenv = function  
-      | VarDec(t,s)               -> Map.add s t gtenv
-      | FunDec(topt,f, decs, stm) -> failwith "type check: function/procedure declarations not yet supported"
-
+      | VarDec(t,s)                 -> Map.add s t gtenv
+      | FunDec(topt, f, decs, stm)  -> 
+            if allUnique (List.map (function
+                        | VarDec (_, n)   -> n
+                        | _               -> failwith "You are not allowed to define a function here") decs) 
+                  then ()
+                  else failwith ("Function " + string f + " have duplicate arguments")
+            let ltenv = List.fold (fun ev x -> 
+                  match x with 
+                        | VarDec (t, n) -> Map.add n t ev
+                        | _             -> failwith "You cannot define nested function" ) gtenv decs
+            let gtenv' = addFuncToEnv gtenv f topt
+            tcS gtenv' ltenv stm |> ignore 
+            let returnStm = List.filter (function 
+                  | Return _  -> true 
+                  | _         -> false) (allStatments stm)
+            if (List.forall ((=)topt) (List.map (function 
+                        | Return a  -> Option.map (tcE gtenv ltenv) a
+                        | _         -> failwith "Impossible!") returnStm))
+                  then gtenv' 
+                  else failwith ("The return types in " + string f + " is not the same")
+            
+            
+   and allUnique ls : bool = Seq.length (Seq.distinct ls) = List.length ls
+   and addFuncToEnv env f = function
+                        | Some ty   -> Map.add f ty env 
+                        | None      -> Map.add f UnitTyp env
+   and allStatments stmt : Stm list = 
+      match stmt with 
+            | Block (_, stmts)      -> List.collect allStatments stmts
+            | x                     -> [x]
    and tcGDecs gtenv = function
                        | dec::decs -> tcGDecs (tcGDec gtenv dec) decs
                        | _         -> gtenv
