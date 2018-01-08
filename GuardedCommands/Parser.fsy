@@ -8,21 +8,24 @@ open GuardedCommands.Frontend.AST
 %token <string> NAME
 %token ITYP BTYP
 %token LP LCP LSP RP RCP RSP
-%token IF FI DO OD BEGIN END 
+%token IF FI DO OD BEGIN END
 %token COMMA COLON SEMI BAR TO
 %token NEG PLUS MINUS TIMES AND EQ LE LT GT NEQ
 %token PRINT ASG SKIP ABORT
 %token EOF
 %token HIGH
+%token FUNCTION
+%token RETURN
 
 %left AND
 %nonassoc NEG
 %left EQ LE LT GT NEQ
-%left PLUS MINUS 
+%left PLUS MINUS
 %left TIMES
 
-%start Main Prog 
+%start Main Prog
 %type <Exp> Exp
+%type <Exp list> ExpL
 %type <Access> Access
 %type <(Exp * Stm list) list> GCList
 %type <GuardedCommand> GuardedCommand
@@ -39,45 +42,47 @@ Main:
 
 Prog:
     BEGIN DecList SEMI StmL END        { P($2, $4) }
-  | BEGIN StmL END                     { P([], $2) }   
+  | BEGIN StmL END                     { P([], $2) }
 
 BasicTyp:
     BTYP                              { BTyp }
-  | ITYP                              { ITyp } 
+  | ITYP                              { ITyp }
 
 Typ:
     BasicTyp                          { $1 }
 
-Dec: 
-    NAME COLON Typ                    { VarDec($3,$1) }
+Dec:
+    NAME COLON Typ                                  { VarDec($3,$1) }
+  | FUNCTION NAME LP DecL RP COLON Typ EQ Stm       { FunDec (Some $7, $2, $4, $9) }
 
-DecL: 
+DecL:
                                       { [] }
    | DecList                          { $1 }
 
-DecList: 
+DecList:
    | Dec                              { [$1] }
    | Dec COMMA DecList                { $1 :: $3 }
 
 Access:
     NAME                              { AVar $1 }
-      
+
 Stm:
     PRINT Exp                         { PrintLn $2 }
   | Access ASG Exp                    { Ass($1,$3)  }
   | SKIP                              { Do (GC []) }
-  | ABORT                             { Alt (GC []) } 
-  | LCP StmL  RCP                     { Block([], $2) } 
+  | ABORT                             { Alt (GC []) }
+  | LCP StmL  RCP                     { Block([], $2) }
   | IF GuardedCommand FI              { Alt $2 }
   | DO GuardedCommand OD              { Do $2  }
+  | RETURN Exp                        { Return (Some $2) }
 
 StmL:
-                                      { [] } 
-  | StmList                           { $1 }    
+                                      { [] }
+  | StmList                           { $1 }
 
 StmList:
   | Stm                               { [$1] }
-  | Stm SEMI StmList                  { $1 :: $3 } 
+  | Stm SEMI StmList                  { $1 :: $3 }
 
 GuardedCommand:
                                       { GC [] }
@@ -85,13 +90,17 @@ GuardedCommand:
 
 GCList:
     Exp TO StmL                       { [($1,$3)]   }
-  | Exp TO StmL BAR GCList	   		  { ($1,$3)::$5 }
+  | Exp TO StmL BAR GCList	   		    { ($1,$3)::$5 }
+
+ExpL:
+    Exp                               { [$1] }
+  | Exp COMMA ExpL                    { $1 :: $3 }
 
 Exp:
     Access                            { Access $1 }
   | INT                               { N $1 }
-  | BOOL                              { B $1 }       
-  | LP Exp RP                         { $2 } 
+  | BOOL                              { B $1 }
+  | LP Exp RP                         { $2 }
   | MINUS Exp                         { Apply("-", [$2])}
   | NEG Exp                           { Apply("!", [$2])}
   | Exp TIMES Exp                     { Apply("*", [$1; $3])}
@@ -103,4 +112,5 @@ Exp:
   | Exp GT Exp                        { Apply(">", [$1; $3])}
   | Exp LT Exp                        { Apply("<", [$1; $3])}
   | Exp NEQ Exp                       { Apply("<>", [$1; $3])}
+  | NAME LP ExpL RP                   { Apply ($1, $3) }
 

@@ -1,6 +1,6 @@
 ﻿#r @"..\packages\FsLexYacc.Runtime.7.0.6\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10\FsLexYacc.Runtime.dll";
-#r @".\GuardedCommands\bin\Debug\Machine.dll";
-#r @".\GuardedCommands\bin\Debug\VirtualMachine.dll";
+#r @".\bin\Debug\Machine.dll";
+#r @".\bin\Debug\VirtualMachine.dll";
 
 #load "AST.fs"
 #load "Parser.fs"
@@ -14,30 +14,33 @@ open GuardedCommands.Util
 open GuardedCommands.Frontend.TypeCheck
 open GuardedCommands.Frontend.AST
 open GuardedCommands.Backend.CodeGeneration
+open Microsoft.FSharp.Text.Lexing
+open System.Text
 
 open ParserUtil
 open CompilerUtil
 open Machine
 open VirtualMachine
+open Lexer
 
 System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 
 // The Ex0.gc example:
 // let ex0Tree = parseFromFile "Ex0.gc";;
 // let _ = tcP ex0Tree;;
-// let ex0Code = CP ex0Tree;; 
+// let ex0Code = CP ex0Tree;;
 // let _ = go ex0Tree;;
 // let _ = goTrace ex0Tree;;
 
 
 // // Parsing of Ex1.gc
-// let ex1Tree = parseFromFile "Ex1.gc";; 
+// let ex1Tree = parseFromFile "Ex1.gc";;
 
 // // -- is typechecked as follows:
 // let _ = tcP ex1Tree;;
 
 // // obtain symbolic code:
-// let ex1Code = CP ex1Tree;; 
+// let ex1Code = CP ex1Tree;;
 
 // // -- is executed with trace as follows:
 // let stack = goTrace ex1Tree;;
@@ -45,7 +48,7 @@ System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 // // -- is executed as follows (no trace):
 // let sameStack = go ex1Tree;;
 
-// // "All in one" parse from file, type check, compile and run 
+// // "All in one" parse from file, type check, compile and run
 // let _ = exec "Ex1.gc";;
 // let _ = exec "Ex2.gc";;
 
@@ -57,17 +60,30 @@ System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 
 // // The parse tree for Ex3.gc
 // List.item 2 pts ;;
+exec "Ex2.gc"
 
+let printTokens (lexbuf : LexBuffer<_>) = 
+  while not lexbuf.IsPastEndOfStream do  
+    printfn "%A" (Lexer.tokenize lexbuf)
+
+let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
+// let tokens = tokenize lexbuf
+// System.Console.WriteLine (string tokens)
+// printTokens (getBuffer "function f(x: int): int = { print x; return x+1 };")
+
+// printTokens (getBuffer "begin return 5 end")
+let str = "begin function f (x : int) : int = print x; x:= f(2) end"
+// printTokens (getBuffer str)
 let tree = parseFromFile "Ex7.gc";;
-let _ = tcP tree;;
-printfn "Type checking passed"
-printfn ""
+// let _ = tcP tree;;
+// printfn "Type checking passed"
+// printfn ""
 
-let code = CP tree;;
-// let _ = go tree;;
-// let _ = goTrace tree;;
+// let code = CP tree;;
+// // let _ = go tree;;
+// // let _ = goTrace tree;;
 
-let _ = exec "Ex7.gc"
+// let _ = exec "Ex7.gc"
 
 
 // Test of programs covered by the first task (Section 3.7):

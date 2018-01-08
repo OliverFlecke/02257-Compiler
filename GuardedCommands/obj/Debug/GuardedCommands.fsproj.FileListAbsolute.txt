@@ -49,14 +49,13 @@ C:\Users\mire\Documents\MRH data\Kurser\02257-18\Project 2\TEST\GuardedCommands\
 C:\Users\mire\Documents\MRH data\Kurser\02257-18\Project 2\TEST\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.dll
 C:\Users\mire\Documents\MRH data\Kurser\02257-18\Project 2\TEST\GuardedCommands\GuardedCommands\bin\Debug\FSharp.Core.xml
 C:\Users\mire\Documents\MRH data\Kurser\02257-18\Project 2\TEST\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.xml
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.dll.config
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.XML
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.dll
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.pdb
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FSharp.Core.dll
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.dll
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FSharp.Core.xml
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.xml
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.fsprojResolveAssemblyReference.cache
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.dll
-c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.pdb
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.dll.config
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.XML
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.dll
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.pdb
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FSharp.Core.dll
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.dll
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FSharp.Core.xml
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.xml
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.dll
+C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.pdb
