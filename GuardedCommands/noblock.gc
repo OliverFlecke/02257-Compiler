@@ -1,0 +1,5 @@
+begin 
+    x: int, z: int, y: int;
+    y:= 5;
+    print y
+end

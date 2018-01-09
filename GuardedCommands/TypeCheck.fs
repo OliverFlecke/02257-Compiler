@@ -17,7 +17,7 @@ module TypeCheck =
          | Apply(f,[e]) when List.exists (fun x ->  x=f) ["-"; "!"]  
                             -> tcMonadic gtenv ltenv f e        
 
-         | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&"]        
+         | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&";"-"]        
                             -> tcDyadic gtenv ltenv f e1 e2   
          | Apply (f, vs)    -> 
             match Map.tryFind f gtenv with 
@@ -32,7 +32,7 @@ module TypeCheck =
                                    | _           -> failwith "illegal/illtyped monadic expression" 
    
    and tcDyadic gtenv ltenv f e1 e2 = match (f, tcE gtenv ltenv e1, tcE gtenv ltenv e2) with
-                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+";"*"]  -> ITyp
+                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+";"*";"-"]  -> ITyp
                                       | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["="] -> BTyp
                                       | (o, BTyp, BTyp) when List.exists (fun x ->  x=o) ["&&";"="]     -> BTyp 
                                       | _                      -> failwith("illegal/illtyped dyadic expression: " + f)
@@ -46,30 +46,39 @@ module TypeCheck =
 /// for global and local variables 
    and tcA gtenv ltenv = 
          function 
-         | AVar x         -> match Map.tryFind x ltenv with
-                             | None   -> match Map.tryFind x gtenv with
-                                         | None   -> failwith ("no declaration for : " + x)
-                                         | Some t -> t
-                             | Some t -> t            
+         | AVar x         -> 
+            match Map.tryFind x ltenv with
+                 | None   -> match Map.tryFind x gtenv with
+                             | None   -> failwith ("no declaration for : " + x)
+                             | Some t -> t
+                 | Some t -> t            
          | AIndex(acc, e) -> failwith "tcA: array indexing not supported yes"
          | ADeref e       -> failwith "tcA: pointer dereferencing not supported yes"
  
 
 /// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
 /// for global and local variables and the possible type of return expressions 
-   and tcS gtenv ltenv = function                           
+   and tcS gtenv ltenv ftyp = function                           
       | PrintLn e       -> ignore(tcE gtenv ltenv e)
       | Ass(acc,e)      -> 
          if tcA gtenv ltenv acc = tcE gtenv ltenv e 
             then ()
             else failwith "illtyped assignment"                                
 
-      | Block([],stms)  -> List.iter (tcS gtenv ltenv) stms
+      | Block(decs, stms)           -> 
+            let ltenv' = List.fold (fun env -> 
+                  function
+                        | VarDec (t, n) -> Map.add n t env
+                        | _             -> failwith "tcS Block: Not supported") ltenv decs
+            List.iter (tcS gtenv ltenv' ftyp) stms
       | Alt (GC gc) | Do (GC gc)    -> 
             if List.forall (fst >> tcE gtenv ltenv >> (=)BTyp) gc 
-              then ()
+              then List.iter (snd >> List.iter (tcS gtenv ltenv ftyp)) gc
               else failwith "tcS: If is expression, expected boolean"
-      | Return e        -> Option.map (tcE gtenv ltenv) e |> ignore
+      | Return e        -> 
+            if Option.map (tcE gtenv ltenv) e = ftyp 
+                  then ()
+                  else failwith "Return type is different from function type"
       | _               -> failwith "tcS: this statement is not supported yet"
 
    and tcGDec gtenv = function  
@@ -83,17 +92,10 @@ module TypeCheck =
             let ltenv = List.fold (fun ev x -> 
                   match x with 
                         | VarDec (t, n) -> Map.add n t ev
-                        | _             -> failwith "You cannot define nested function" ) gtenv decs
+                        | _             -> failwith "You cannot define nested function" ) Map.empty decs
             let gtenv' = addFuncToEnv f topt decs gtenv
-            tcS gtenv' ltenv stm |> ignore 
-            let returnStm = List.filter (function 
-                  | Return _  -> true 
-                  | _         -> false) (allStatments stm)
-            if (List.forall ((=)topt) (List.map (function 
-                        | Return a  -> Option.map (tcE gtenv ltenv) a
-                        | _         -> failwith "Impossible!") returnStm))
-                  then gtenv' 
-                  else failwith ("The return types in " + string f + " is not the same")
+            tcS gtenv' ltenv topt stm |> ignore 
+            gtenv'
             
             
    and allUnique ls : bool = Seq.length (Seq.distinct ls) = List.length ls
@@ -112,6 +114,6 @@ module TypeCheck =
 
 /// tcP prog checks the well-typeness of a program prog
    and tcP(P(decs, stms)) = let gtenv = tcGDecs Map.empty decs
-                            List.iter (tcS gtenv Map.empty) stms
+                            List.iter (tcS gtenv Map.empty None) stms
 
   

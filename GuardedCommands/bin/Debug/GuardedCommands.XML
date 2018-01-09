@@ -35,17 +35,17 @@
  CP prog gives the code for a program prog
 </summary>
 </member>
-<member name="M:GuardedCommands.Backend.CodeGeneration.CS``3(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{GuardedCommands.Backend.CodeGeneration.Var,``0}},``1,``2,GuardedCommands.Frontend.AST.Stm)">
+<member name="M:GuardedCommands.Backend.CodeGeneration.CS``1(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{GuardedCommands.Backend.CodeGeneration.Var,``0}},System.Int32,Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{System.String,Microsoft.FSharp.Core.FSharpOption{GuardedCommands.Frontend.AST.Typ},Microsoft.FSharp.Collections.FSharpList{System.Tuple{GuardedCommands.Frontend.AST.Typ,System.String}}}},Microsoft.FSharp.Core.FSharpOption{System.String},GuardedCommands.Frontend.AST.Stm)">
 <summary>
- CS vEnv fEnv s gives the code for a statement s on the basis of a variable and a function environment                          
+ CS vEnv fEnv s gives the code for a statement s on the basis of a variable and a function environment
 </summary>
 </member>
-<member name="M:GuardedCommands.Backend.CodeGeneration.CA``3(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{GuardedCommands.Backend.CodeGeneration.Var,``0}},``1,``2,GuardedCommands.Frontend.AST.Access)">
+<member name="M:GuardedCommands.Backend.CodeGeneration.CA``4(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{GuardedCommands.Backend.CodeGeneration.Var,``0}},System.Int32,Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{System.String,``1,``2}},``3,GuardedCommands.Frontend.AST.Access)">
 <summary>
  CA vEnv fEnv acc gives the code for an access acc on the basis of a variable and a function environment
 </summary>
 </member>
-<member name="M:GuardedCommands.Backend.CodeGeneration.CE``3(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{GuardedCommands.Backend.CodeGeneration.Var,``0}},``1,``2,GuardedCommands.Frontend.AST.Exp)">
+<member name="M:GuardedCommands.Backend.CodeGeneration.CE``4(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{GuardedCommands.Backend.CodeGeneration.Var,``0}},System.Int32,Microsoft.FSharp.Collections.FSharpMap{System.String,System.Tuple{System.String,``1,``2}},``3,GuardedCommands.Frontend.AST.Exp)">
 <summary>
  CE vEnv fEnv e gives the code for an expression e on the basis of a variable and a function environment
 </summary>

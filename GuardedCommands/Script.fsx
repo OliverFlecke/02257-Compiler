@@ -62,8 +62,8 @@ System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 // List.item 2 pts ;;
 exec "Ex2.gc"
 
-let printTokens (lexbuf : LexBuffer<_>) = 
-  while not lexbuf.IsPastEndOfStream do  
+let printTokens (lexbuf : LexBuffer<_>) =
+  while not lexbuf.IsPastEndOfStream do
     printfn "%A" (Lexer.tokenize lexbuf)
 
 let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
@@ -71,15 +71,19 @@ let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
 // System.Console.WriteLine (string tokens)
 // printTokens (getBuffer "function f(x: int): int = { print x; return x+1 };")
 
-// printTokens (getBuffer "begin return 5 end")
-let str = "begin function f (x : int) : int = print x; x:= f(2) end"
+// printTokens (getBuffer "begin return 5 end"
+
+
+
+System.Console.WriteLine "Starting type checking"
 // printTokens (getBuffer str)
-let tree = parseFromFile "Ex7.gc";;
+let tree = parseFromFile "fact.gc";;
 let _ = tcP tree;;
 printfn "Type checking passed"
 printfn ""
 
 let code = CP tree;;
+
 // // let _ = go tree;;
 let _ = goTrace tree;;
 // List.map (fun x -> System.Console.WriteLine (string x)) code

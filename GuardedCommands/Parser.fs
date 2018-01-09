@@ -235,17 +235,17 @@ let prodIdxToNonTerminal (prodIdx:int) =
     | 20 -> NONTERM_Stm 
     | 21 -> NONTERM_Stm 
     | 22 -> NONTERM_Stm 
-    | 23 -> NONTERM_StmL 
+    | 23 -> NONTERM_Stm 
     | 24 -> NONTERM_StmL 
-    | 25 -> NONTERM_StmList 
+    | 25 -> NONTERM_StmL 
     | 26 -> NONTERM_StmList 
-    | 27 -> NONTERM_GuardedCommand 
+    | 27 -> NONTERM_StmList 
     | 28 -> NONTERM_GuardedCommand 
-    | 29 -> NONTERM_GCList 
+    | 29 -> NONTERM_GuardedCommand 
     | 30 -> NONTERM_GCList 
-    | 31 -> NONTERM_ExpL 
+    | 31 -> NONTERM_GCList 
     | 32 -> NONTERM_ExpL 
-    | 33 -> NONTERM_Exp 
+    | 33 -> NONTERM_ExpL 
     | 34 -> NONTERM_Exp 
     | 35 -> NONTERM_Exp 
     | 36 -> NONTERM_Exp 
@@ -261,6 +261,7 @@ let prodIdxToNonTerminal (prodIdx:int) =
     | 46 -> NONTERM_Exp 
     | 47 -> NONTERM_Exp 
     | 48 -> NONTERM_Exp 
+    | 49 -> NONTERM_Exp 
     | _ -> failwith "prodIdxToNonTerminal: bad production index"
 
 let _fsyacc_endOfInputTag = 43 
@@ -355,18 +356,18 @@ let _fsyacc_dataOfToken (t:token) =
   | STRING _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
   | BOOL _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
   | INT _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
-let _fsyacc_gotos = [| 0us; 65535us; 0us; 65535us; 1us; 65535us; 0us; 1us; 2us; 65535us; 0us; 4us; 2us; 3us; 2us; 65535us; 18us; 15us; 25us; 15us; 2us; 65535us; 18us; 19us; 25us; 26us; 3us; 65535us; 6us; 30us; 22us; 30us; 31us; 30us; 1us; 65535us; 22us; 23us; 3us; 65535us; 6us; 7us; 22us; 29us; 31us; 32us; 26us; 65535us; 6us; 37us; 8us; 37us; 27us; 37us; 35us; 66us; 38us; 66us; 42us; 37us; 45us; 66us; 48us; 66us; 51us; 66us; 55us; 37us; 59us; 37us; 61us; 66us; 64us; 66us; 69us; 66us; 72us; 66us; 74us; 66us; 85us; 66us; 86us; 66us; 87us; 66us; 88us; 66us; 89us; 66us; 90us; 66us; 91us; 66us; 92us; 66us; 93us; 66us; 94us; 66us; 6us; 65535us; 6us; 54us; 8us; 54us; 27us; 28us; 42us; 54us; 55us; 54us; 59us; 54us; 4us; 65535us; 6us; 11us; 8us; 9us; 42us; 43us; 59us; 60us; 5us; 65535us; 6us; 53us; 8us; 53us; 42us; 53us; 55us; 56us; 59us; 53us; 2us; 65535us; 45us; 46us; 48us; 49us; 3us; 65535us; 45us; 57us; 48us; 57us; 61us; 62us; 2us; 65535us; 64us; 65us; 94us; 95us; 20us; 65535us; 35us; 36us; 38us; 39us; 45us; 58us; 48us; 58us; 51us; 52us; 61us; 58us; 64us; 63us; 69us; 70us; 72us; 73us; 74us; 75us; 85us; 76us; 86us; 77us; 87us; 78us; 88us; 79us; 89us; 80us; 90us; 81us; 91us; 82us; 92us; 83us; 93us; 84us; 94us; 63us; |]
-let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; 2us; 4us; 7us; 10us; 13us; 17us; 19us; 23us; 50us; 57us; 62us; 68us; 71us; 75us; 78us; |]
-let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 1us; 1us; 2us; 1us; 2us; 2us; 3us; 4us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 4us; 1us; 4us; 1us; 5us; 1us; 6us; 1us; 7us; 1us; 8us; 2us; 8us; 14us; 1us; 8us; 1us; 8us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 11us; 2us; 12us; 13us; 1us; 13us; 1us; 13us; 1us; 14us; 2us; 14us; 48us; 1us; 15us; 10us; 15us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 1us; 16us; 1us; 16us; 10us; 16us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 1us; 17us; 1us; 18us; 1us; 19us; 1us; 19us; 1us; 19us; 1us; 20us; 1us; 20us; 1us; 20us; 1us; 21us; 1us; 21us; 1us; 21us; 1us; 22us; 10us; 22us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 1us; 24us; 2us; 25us; 26us; 1us; 26us; 1us; 26us; 1us; 28us; 11us; 29us; 30us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 2us; 29us; 30us; 2us; 29us; 30us; 1us; 30us; 1us; 30us; 11us; 31us; 32us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 1us; 32us; 1us; 32us; 1us; 33us; 1us; 34us; 1us; 35us; 1us; 36us; 10us; 36us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 1us; 36us; 1us; 37us; 10us; 37us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 1us; 38us; 10us; 38us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 10us; 39us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 10us; 39us; 40us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 10us; 39us; 40us; 41us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 10us; 39us; 40us; 41us; 42us; 42us; 43us; 44us; 45us; 46us; 47us; 10us; 39us; 40us; 41us; 42us; 43us; 43us; 44us; 45us; 46us; 47us; 10us; 39us; 40us; 41us; 42us; 43us; 44us; 44us; 45us; 46us; 47us; 10us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 45us; 46us; 47us; 10us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 46us; 47us; 10us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 47us; 1us; 39us; 1us; 40us; 1us; 41us; 1us; 42us; 1us; 43us; 1us; 44us; 1us; 45us; 1us; 46us; 1us; 47us; 1us; 48us; 1us; 48us; 1us; 48us; |]
-let _fsyacc_stateToProdIdxsTableRowOffsets = [|0us; 2us; 4us; 6us; 8us; 10us; 12us; 15us; 17us; 19us; 21us; 23us; 25us; 27us; 29us; 31us; 33us; 35us; 38us; 40us; 42us; 44us; 46us; 48us; 50us; 52us; 54us; 56us; 58us; 60us; 62us; 65us; 67us; 69us; 71us; 74us; 76us; 87us; 89us; 91us; 102us; 104us; 106us; 108us; 110us; 112us; 114us; 116us; 118us; 120us; 122us; 124us; 126us; 137us; 139us; 142us; 144us; 146us; 148us; 160us; 163us; 166us; 168us; 170us; 182us; 184us; 186us; 188us; 190us; 192us; 194us; 205us; 207us; 209us; 220us; 222us; 233us; 244us; 255us; 266us; 277us; 288us; 299us; 310us; 321us; 332us; 334us; 336us; 338us; 340us; 342us; 344us; 346us; 348us; 350us; 352us; 354us; |]
-let _fsyacc_action_rows = 97
-let _fsyacc_actionTableElements = [|1us; 32768us; 27us; 6us; 0us; 49152us; 1us; 32768us; 27us; 6us; 0us; 49152us; 1us; 32768us; 3us; 5us; 0us; 16386us; 9us; 16407us; 0us; 51us; 1us; 20us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 45us; 25us; 48us; 30us; 42us; 37us; 17us; 1us; 32768us; 20us; 8us; 8us; 16407us; 0us; 51us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 45us; 25us; 48us; 30us; 42us; 37us; 33us; 1us; 32768us; 28us; 10us; 0us; 16387us; 1us; 32768us; 28us; 12us; 0us; 16388us; 0us; 16389us; 0us; 16390us; 0us; 16391us; 1us; 32768us; 19us; 18us; 1us; 16398us; 19us; 18us; 2us; 32768us; 35us; 14us; 36us; 13us; 0us; 16392us; 1us; 32768us; 37us; 21us; 1us; 32768us; 29us; 22us; 2us; 16394us; 1us; 20us; 37us; 16us; 1us; 32768us; 32us; 24us; 1us; 32768us; 19us; 25us; 2us; 32768us; 35us; 14us; 36us; 13us; 1us; 32768us; 13us; 27us; 8us; 32768us; 0us; 51us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 45us; 25us; 48us; 30us; 42us; 37us; 33us; 0us; 16393us; 0us; 16395us; 1us; 16396us; 18us; 31us; 2us; 32768us; 1us; 20us; 37us; 16us; 0us; 16397us; 0us; 16398us; 1us; 16398us; 29us; 94us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 9us; 16399us; 9us; 86us; 10us; 87us; 11us; 85us; 12us; 88us; 13us; 89us; 14us; 90us; 15us; 92us; 16us; 91us; 17us; 93us; 1us; 32768us; 5us; 38us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 9us; 16400us; 9us; 86us; 10us; 87us; 11us; 85us; 12us; 88us; 13us; 89us; 14us; 90us; 15us; 92us; 16us; 91us; 17us; 93us; 0us; 16401us; 0us; 16402us; 8us; 16407us; 0us; 51us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 45us; 25us; 48us; 30us; 42us; 37us; 33us; 1us; 32768us; 33us; 44us; 0us; 16403us; 6us; 16411us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 1us; 32768us; 24us; 47us; 0us; 16404us; 6us; 16411us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 1us; 32768us; 26us; 50us; 0us; 16405us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 9us; 16406us; 9us; 86us; 10us; 87us; 11us; 85us; 12us; 88us; 13us; 89us; 14us; 90us; 15us; 92us; 16us; 91us; 17us; 93us; 0us; 16408us; 1us; 16409us; 20us; 55us; 8us; 32768us; 0us; 51us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 45us; 25us; 48us; 30us; 42us; 37us; 33us; 0us; 16410us; 0us; 16412us; 10us; 32768us; 9us; 86us; 10us; 87us; 11us; 85us; 12us; 88us; 13us; 89us; 14us; 90us; 15us; 92us; 16us; 91us; 17us; 93us; 22us; 59us; 8us; 16407us; 0us; 51us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 45us; 25us; 48us; 30us; 42us; 37us; 33us; 1us; 16413us; 21us; 61us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 0us; 16414us; 10us; 16415us; 9us; 86us; 10us; 87us; 11us; 85us; 12us; 88us; 13us; 89us; 14us; 90us; 15us; 92us; 16us; 91us; 17us; 93us; 18us; 64us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 0us; 16416us; 0us; 16417us; 0us; 16418us; 0us; 16419us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 10us; 32768us; 9us; 86us; 10us; 87us; 11us; 85us; 12us; 88us; 13us; 89us; 14us; 90us; 15us; 92us; 16us; 91us; 17us; 93us; 32us; 71us; 0us; 16420us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 1us; 16421us; 11us; 85us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 8us; 16422us; 9us; 86us; 10us; 87us; 11us; 85us; 13us; 89us; 14us; 90us; 15us; 92us; 16us; 91us; 17us; 93us; 0us; 16423us; 1us; 16424us; 11us; 85us; 1us; 16425us; 11us; 85us; 8us; 16426us; 9us; 86us; 10us; 87us; 11us; 85us; 13us; 89us; 14us; 90us; 15us; 92us; 16us; 91us; 17us; 93us; 3us; 16427us; 9us; 86us; 10us; 87us; 11us; 85us; 3us; 16428us; 9us; 86us; 10us; 87us; 11us; 85us; 3us; 16429us; 9us; 86us; 10us; 87us; 11us; 85us; 3us; 16430us; 9us; 86us; 10us; 87us; 11us; 85us; 3us; 16431us; 9us; 86us; 10us; 87us; 11us; 85us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 6us; 32768us; 8us; 74us; 10us; 72us; 29us; 69us; 37us; 34us; 39us; 68us; 40us; 67us; 1us; 32768us; 32us; 96us; 0us; 16432us; |]
-let _fsyacc_actionTableRowOffsets = [|0us; 2us; 3us; 5us; 6us; 8us; 9us; 19us; 21us; 30us; 32us; 33us; 35us; 36us; 37us; 38us; 39us; 41us; 43us; 46us; 47us; 49us; 51us; 54us; 56us; 58us; 61us; 63us; 72us; 73us; 74us; 76us; 79us; 80us; 81us; 83us; 90us; 100us; 102us; 109us; 119us; 120us; 121us; 130us; 132us; 133us; 140us; 142us; 143us; 150us; 152us; 153us; 160us; 170us; 171us; 173us; 182us; 183us; 184us; 195us; 204us; 206us; 213us; 214us; 225us; 232us; 233us; 234us; 235us; 236us; 243us; 254us; 255us; 262us; 264us; 271us; 280us; 281us; 283us; 285us; 294us; 298us; 302us; 306us; 310us; 314us; 321us; 328us; 335us; 342us; 349us; 356us; 363us; 370us; 377us; 384us; 386us; |]
-let _fsyacc_reductionSymbolCounts = [|1us; 1us; 2us; 5us; 3us; 1us; 1us; 1us; 3us; 9us; 0us; 1us; 1us; 3us; 1us; 2us; 3us; 1us; 1us; 3us; 3us; 3us; 2us; 0us; 1us; 1us; 3us; 0us; 1us; 3us; 5us; 1us; 3us; 1us; 1us; 1us; 3us; 2us; 2us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 4us; |]
-let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 3us; 3us; 4us; 4us; 5us; 6us; 6us; 7us; 7us; 8us; 8us; 9us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 11us; 11us; 12us; 12us; 13us; 13us; 14us; 14us; 15us; 15us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; |]
-let _fsyacc_immediateActions = [|65535us; 49152us; 65535us; 49152us; 65535us; 16386us; 65535us; 65535us; 65535us; 65535us; 16387us; 65535us; 16388us; 16389us; 16390us; 16391us; 65535us; 65535us; 65535us; 16392us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16393us; 16395us; 65535us; 65535us; 16397us; 16398us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16401us; 16402us; 65535us; 65535us; 16403us; 65535us; 65535us; 16404us; 65535us; 65535us; 16405us; 65535us; 65535us; 16408us; 65535us; 65535us; 16410us; 16412us; 65535us; 65535us; 65535us; 65535us; 16414us; 65535us; 65535us; 16416us; 16417us; 16418us; 16419us; 65535us; 65535us; 16420us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16432us; |]
+let _fsyacc_gotos = [| 0us; 65535us; 0us; 65535us; 1us; 65535us; 0us; 1us; 2us; 65535us; 0us; 4us; 2us; 3us; 2us; 65535us; 18us; 15us; 25us; 15us; 2us; 65535us; 18us; 19us; 25us; 26us; 4us; 65535us; 6us; 30us; 22us; 30us; 31us; 30us; 42us; 30us; 1us; 65535us; 22us; 23us; 4us; 65535us; 6us; 7us; 22us; 29us; 31us; 32us; 42us; 43us; 27us; 65535us; 6us; 37us; 8us; 37us; 27us; 37us; 35us; 70us; 38us; 70us; 42us; 37us; 44us; 37us; 49us; 70us; 52us; 70us; 55us; 70us; 59us; 37us; 63us; 37us; 65us; 70us; 68us; 70us; 73us; 70us; 76us; 70us; 78us; 70us; 89us; 70us; 90us; 70us; 91us; 70us; 92us; 70us; 93us; 70us; 94us; 70us; 95us; 70us; 96us; 70us; 97us; 70us; 98us; 70us; 7us; 65535us; 6us; 58us; 8us; 58us; 27us; 28us; 42us; 58us; 44us; 58us; 59us; 58us; 63us; 58us; 5us; 65535us; 6us; 11us; 8us; 9us; 42us; 47us; 44us; 45us; 63us; 64us; 6us; 65535us; 6us; 57us; 8us; 57us; 42us; 57us; 44us; 57us; 59us; 60us; 63us; 57us; 2us; 65535us; 49us; 50us; 52us; 53us; 3us; 65535us; 49us; 61us; 52us; 61us; 65us; 66us; 2us; 65535us; 68us; 69us; 98us; 99us; 20us; 65535us; 35us; 36us; 38us; 39us; 49us; 62us; 52us; 62us; 55us; 56us; 65us; 62us; 68us; 67us; 73us; 74us; 76us; 77us; 78us; 79us; 89us; 80us; 90us; 81us; 91us; 82us; 92us; 83us; 93us; 84us; 94us; 85us; 95us; 86us; 96us; 87us; 97us; 88us; 98us; 67us; |]
+let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; 2us; 4us; 7us; 10us; 13us; 18us; 20us; 25us; 53us; 61us; 67us; 74us; 77us; 81us; 84us; |]
+let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 1us; 1us; 2us; 1us; 2us; 2us; 3us; 4us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 4us; 1us; 4us; 1us; 5us; 1us; 6us; 1us; 7us; 1us; 8us; 2us; 8us; 14us; 1us; 8us; 1us; 8us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 9us; 1us; 11us; 2us; 12us; 13us; 1us; 13us; 1us; 13us; 1us; 14us; 2us; 14us; 49us; 1us; 15us; 10us; 15us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 1us; 16us; 1us; 16us; 10us; 16us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 1us; 17us; 1us; 18us; 2us; 19us; 20us; 1us; 19us; 1us; 19us; 1us; 19us; 1us; 19us; 1us; 20us; 1us; 20us; 1us; 21us; 1us; 21us; 1us; 21us; 1us; 22us; 1us; 22us; 1us; 22us; 1us; 23us; 10us; 23us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 1us; 25us; 2us; 26us; 27us; 1us; 27us; 1us; 27us; 1us; 29us; 11us; 30us; 31us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 2us; 30us; 31us; 2us; 30us; 31us; 1us; 31us; 1us; 31us; 11us; 32us; 33us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 1us; 33us; 1us; 33us; 1us; 34us; 1us; 35us; 1us; 36us; 1us; 37us; 10us; 37us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 1us; 37us; 1us; 38us; 10us; 38us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 1us; 39us; 10us; 39us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 10us; 40us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 10us; 40us; 41us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 10us; 40us; 41us; 42us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 10us; 40us; 41us; 42us; 43us; 43us; 44us; 45us; 46us; 47us; 48us; 10us; 40us; 41us; 42us; 43us; 44us; 44us; 45us; 46us; 47us; 48us; 10us; 40us; 41us; 42us; 43us; 44us; 45us; 45us; 46us; 47us; 48us; 10us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 46us; 47us; 48us; 10us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 47us; 48us; 10us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 48us; 1us; 40us; 1us; 41us; 1us; 42us; 1us; 43us; 1us; 44us; 1us; 45us; 1us; 46us; 1us; 47us; 1us; 48us; 1us; 49us; 1us; 49us; 1us; 49us; |]
+let _fsyacc_stateToProdIdxsTableRowOffsets = [|0us; 2us; 4us; 6us; 8us; 10us; 12us; 15us; 17us; 19us; 21us; 23us; 25us; 27us; 29us; 31us; 33us; 35us; 38us; 40us; 42us; 44us; 46us; 48us; 50us; 52us; 54us; 56us; 58us; 60us; 62us; 65us; 67us; 69us; 71us; 74us; 76us; 87us; 89us; 91us; 102us; 104us; 106us; 109us; 111us; 113us; 115us; 117us; 119us; 121us; 123us; 125us; 127us; 129us; 131us; 133us; 135us; 146us; 148us; 151us; 153us; 155us; 157us; 169us; 172us; 175us; 177us; 179us; 191us; 193us; 195us; 197us; 199us; 201us; 203us; 214us; 216us; 218us; 229us; 231us; 242us; 253us; 264us; 275us; 286us; 297us; 308us; 319us; 330us; 341us; 343us; 345us; 347us; 349us; 351us; 353us; 355us; 357us; 359us; 361us; 363us; |]
+let _fsyacc_action_rows = 101
+let _fsyacc_actionTableElements = [|1us; 32768us; 27us; 6us; 0us; 49152us; 1us; 32768us; 27us; 6us; 0us; 49152us; 1us; 32768us; 3us; 5us; 0us; 16386us; 9us; 16408us; 0us; 55us; 1us; 20us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 49us; 25us; 52us; 30us; 42us; 37us; 17us; 1us; 32768us; 20us; 8us; 8us; 16408us; 0us; 55us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 49us; 25us; 52us; 30us; 42us; 37us; 33us; 1us; 32768us; 28us; 10us; 0us; 16387us; 1us; 32768us; 28us; 12us; 0us; 16388us; 0us; 16389us; 0us; 16390us; 0us; 16391us; 1us; 32768us; 19us; 18us; 1us; 16398us; 19us; 18us; 2us; 32768us; 35us; 14us; 36us; 13us; 0us; 16392us; 1us; 32768us; 37us; 21us; 1us; 32768us; 29us; 22us; 2us; 16394us; 1us; 20us; 37us; 16us; 1us; 32768us; 32us; 24us; 1us; 32768us; 19us; 25us; 2us; 32768us; 35us; 14us; 36us; 13us; 1us; 32768us; 13us; 27us; 8us; 32768us; 0us; 55us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 49us; 25us; 52us; 30us; 42us; 37us; 33us; 0us; 16393us; 0us; 16395us; 1us; 16396us; 18us; 31us; 2us; 32768us; 1us; 20us; 37us; 16us; 0us; 16397us; 0us; 16398us; 1us; 16398us; 29us; 98us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 9us; 16399us; 9us; 90us; 10us; 91us; 11us; 89us; 12us; 92us; 13us; 93us; 14us; 94us; 15us; 96us; 16us; 95us; 17us; 97us; 1us; 32768us; 5us; 38us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 9us; 16400us; 9us; 90us; 10us; 91us; 11us; 89us; 12us; 92us; 13us; 93us; 14us; 94us; 15us; 96us; 16us; 95us; 17us; 97us; 0us; 16401us; 0us; 16402us; 9us; 16408us; 0us; 55us; 1us; 20us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 49us; 25us; 52us; 30us; 42us; 37us; 17us; 1us; 32768us; 20us; 44us; 8us; 16408us; 0us; 55us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 49us; 25us; 52us; 30us; 42us; 37us; 33us; 1us; 32768us; 33us; 46us; 0us; 16403us; 1us; 32768us; 33us; 48us; 0us; 16404us; 6us; 16412us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 1us; 32768us; 24us; 51us; 0us; 16405us; 6us; 16412us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 1us; 32768us; 26us; 54us; 0us; 16406us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 9us; 16407us; 9us; 90us; 10us; 91us; 11us; 89us; 12us; 92us; 13us; 93us; 14us; 94us; 15us; 96us; 16us; 95us; 17us; 97us; 0us; 16409us; 1us; 16410us; 20us; 59us; 8us; 32768us; 0us; 55us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 49us; 25us; 52us; 30us; 42us; 37us; 33us; 0us; 16411us; 0us; 16413us; 10us; 32768us; 9us; 90us; 10us; 91us; 11us; 89us; 12us; 92us; 13us; 93us; 14us; 94us; 15us; 96us; 16us; 95us; 17us; 97us; 22us; 63us; 8us; 16408us; 0us; 55us; 4us; 35us; 6us; 40us; 7us; 41us; 23us; 49us; 25us; 52us; 30us; 42us; 37us; 33us; 1us; 16414us; 21us; 65us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 0us; 16415us; 10us; 16416us; 9us; 90us; 10us; 91us; 11us; 89us; 12us; 92us; 13us; 93us; 14us; 94us; 15us; 96us; 16us; 95us; 17us; 97us; 18us; 68us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 0us; 16417us; 0us; 16418us; 0us; 16419us; 0us; 16420us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 10us; 32768us; 9us; 90us; 10us; 91us; 11us; 89us; 12us; 92us; 13us; 93us; 14us; 94us; 15us; 96us; 16us; 95us; 17us; 97us; 32us; 75us; 0us; 16421us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 1us; 16422us; 11us; 89us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 8us; 16423us; 9us; 90us; 10us; 91us; 11us; 89us; 13us; 93us; 14us; 94us; 15us; 96us; 16us; 95us; 17us; 97us; 0us; 16424us; 1us; 16425us; 11us; 89us; 1us; 16426us; 11us; 89us; 8us; 16427us; 9us; 90us; 10us; 91us; 11us; 89us; 13us; 93us; 14us; 94us; 15us; 96us; 16us; 95us; 17us; 97us; 3us; 16428us; 9us; 90us; 10us; 91us; 11us; 89us; 3us; 16429us; 9us; 90us; 10us; 91us; 11us; 89us; 3us; 16430us; 9us; 90us; 10us; 91us; 11us; 89us; 3us; 16431us; 9us; 90us; 10us; 91us; 11us; 89us; 3us; 16432us; 9us; 90us; 10us; 91us; 11us; 89us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 6us; 32768us; 8us; 78us; 10us; 76us; 29us; 73us; 37us; 34us; 39us; 72us; 40us; 71us; 1us; 32768us; 32us; 100us; 0us; 16433us; |]
+let _fsyacc_actionTableRowOffsets = [|0us; 2us; 3us; 5us; 6us; 8us; 9us; 19us; 21us; 30us; 32us; 33us; 35us; 36us; 37us; 38us; 39us; 41us; 43us; 46us; 47us; 49us; 51us; 54us; 56us; 58us; 61us; 63us; 72us; 73us; 74us; 76us; 79us; 80us; 81us; 83us; 90us; 100us; 102us; 109us; 119us; 120us; 121us; 131us; 133us; 142us; 144us; 145us; 147us; 148us; 155us; 157us; 158us; 165us; 167us; 168us; 175us; 185us; 186us; 188us; 197us; 198us; 199us; 210us; 219us; 221us; 228us; 229us; 240us; 247us; 248us; 249us; 250us; 251us; 258us; 269us; 270us; 277us; 279us; 286us; 295us; 296us; 298us; 300us; 309us; 313us; 317us; 321us; 325us; 329us; 336us; 343us; 350us; 357us; 364us; 371us; 378us; 385us; 392us; 399us; 401us; |]
+let _fsyacc_reductionSymbolCounts = [|1us; 1us; 2us; 5us; 3us; 1us; 1us; 1us; 3us; 9us; 0us; 1us; 1us; 3us; 1us; 2us; 3us; 1us; 1us; 5us; 3us; 3us; 3us; 2us; 0us; 1us; 1us; 3us; 0us; 1us; 3us; 5us; 1us; 3us; 1us; 1us; 1us; 3us; 2us; 2us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 4us; |]
+let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 3us; 3us; 4us; 4us; 5us; 6us; 6us; 7us; 7us; 8us; 8us; 9us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 11us; 11us; 12us; 12us; 13us; 13us; 14us; 14us; 15us; 15us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; |]
+let _fsyacc_immediateActions = [|65535us; 49152us; 65535us; 49152us; 65535us; 16386us; 65535us; 65535us; 65535us; 65535us; 16387us; 65535us; 16388us; 16389us; 16390us; 16391us; 65535us; 65535us; 65535us; 16392us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16393us; 16395us; 65535us; 65535us; 16397us; 16398us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16401us; 16402us; 65535us; 65535us; 65535us; 65535us; 16403us; 65535us; 16404us; 65535us; 65535us; 16405us; 65535us; 65535us; 16406us; 65535us; 65535us; 16409us; 65535us; 65535us; 16411us; 16413us; 65535us; 65535us; 65535us; 65535us; 16415us; 65535us; 65535us; 16417us; 16418us; 16419us; 16420us; 65535us; 65535us; 16421us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16433us; |]
 let _fsyacc_reductions ()  =    [| 
-# 369 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 370 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -375,7 +376,7 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startMain));
-# 378 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 379 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -384,7 +385,7 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startProg));
-# 387 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 388 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -395,7 +396,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 41 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 398 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 399 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
@@ -407,7 +408,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 44 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 410 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 411 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
@@ -418,7 +419,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 45 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 421 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 422 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -428,7 +429,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 48 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 431 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 432 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -438,7 +439,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 49 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 441 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 442 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
             Microsoft.FSharp.Core.Operators.box
@@ -449,7 +450,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 52 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 452 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 453 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
@@ -461,7 +462,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 55 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec));
-# 464 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 465 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
@@ -475,7 +476,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 56 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec));
-# 478 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 479 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -485,7 +486,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 59 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 488 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 489 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
             Microsoft.FSharp.Core.Operators.box
@@ -496,7 +497,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 60 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 499 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 500 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec)) in
             Microsoft.FSharp.Core.Operators.box
@@ -507,7 +508,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 63 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 510 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 511 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
@@ -519,7 +520,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 64 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 522 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 523 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
@@ -530,7 +531,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 67 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Access));
-# 533 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 534 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
@@ -541,7 +542,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 70 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 544 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 545 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
@@ -553,7 +554,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 71 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 556 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 557 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -563,7 +564,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 72 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 566 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 567 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -573,128 +574,140 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 73 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 576 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 577 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
+            let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 74 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+                                                             Block(_2, _4) 
+                   )
+# 74 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+                 : Stm));
+# 589 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 74 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 75 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Block([], _2) 
                    )
-# 74 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 75 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 587 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 600 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : GuardedCommand)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 75 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 76 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Alt _2 
                    )
-# 75 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 76 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 598 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 611 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : GuardedCommand)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 76 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 77 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Do _2  
                    )
-# 76 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 77 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 609 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 622 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 77 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 78 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Return (Some _2) 
                    )
-# 77 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 78 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 620 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 633 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 80 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 81 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [] 
                    )
-# 80 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 81 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 630 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 643 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 81 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 82 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 
                    )
-# 81 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 82 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 641 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 654 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 84 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 85 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [_1] 
                    )
-# 84 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 85 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 652 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 665 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 85 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 86 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 :: _3 
                    )
-# 85 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 86 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 664 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 677 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 88 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 89 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              GC [] 
                    )
-# 88 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 89 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : GuardedCommand));
-# 674 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 687 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : (Exp * Stm list) list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 89 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 90 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              GC _1 
                    )
-# 89 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 90 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : GuardedCommand));
-# 685 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 698 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 92 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 93 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [(_1,_3)]   
                    )
-# 92 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 93 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : (Exp * Stm list) list));
-# 697 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 710 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
@@ -702,222 +715,222 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 93 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 94 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                            (_1,_3)::_5 
                    )
-# 93 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 94 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : (Exp * Stm list) list));
-# 710 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 723 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 96 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 97 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [_1] 
                    )
-# 96 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 97 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp list));
-# 721 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 734 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 97 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 98 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 :: _3 
                    )
-# 97 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 98 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp list));
-# 733 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 746 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 100 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 101 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Access _1 
                    )
-# 100 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 101 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 744 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 757 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : int)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 101 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 102 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              N _1 
                    )
-# 101 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 102 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 755 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 768 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 102 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 103 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              B _1 
                    )
-# 102 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 103 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 766 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 779 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 103 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 104 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _2 
                    )
-# 103 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 104 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 777 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 790 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 104 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 105 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("-", [_2])
                    )
-# 104 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 105 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 788 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 801 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 105 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 106 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("!", [_2])
                    )
-# 105 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 106 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 799 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 812 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 106 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 107 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("*", [_1; _3])
                    )
-# 106 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 107 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 811 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 824 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 107 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 108 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("+", [_1; _3])
                    )
-# 107 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 108 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 823 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 836 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 108 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 109 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("-", [_1; _3])
                    )
-# 108 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 109 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 835 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 848 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 109 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 110 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("&&", [_1; _3])
                    )
-# 109 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 110 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 847 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 860 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 110 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 111 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("=", [_1; _3])
                    )
-# 110 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 111 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 859 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 872 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 111 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 112 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<=", [_1; _3])
                    )
-# 111 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 112 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 871 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 884 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 112 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 113 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply(">", [_1; _3])
                    )
-# 112 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 113 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 883 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 896 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 113 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 114 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<", [_1; _3])
                    )
-# 113 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 114 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 895 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 908 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 114 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 115 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<>", [_1; _3])
                    )
-# 114 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 115 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 907 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 920 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 115 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 116 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply (_1, _3) 
                    )
-# 115 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 116 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
 |]
-# 920 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 933 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
 let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> = 
   { reductions= _fsyacc_reductions ();
     endOfInputTag = _fsyacc_endOfInputTag;

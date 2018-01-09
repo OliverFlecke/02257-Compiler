@@ -24,6 +24,11 @@ module CodeGeneration =
     type ParamDecs = (Typ * string) list
     type funEnv = Map<Name, label * Typ option * ParamDecs> * Name option
 
+    let allocateDecs vEnv decs = List.fold (fun env ->
+        function
+            | (VarDec (t, n))   -> (Map.add n (LocVar (snd env), t) <| fst env, snd env + 1)
+            | _                 -> failwith "Not supported") (fst vEnv, 0) decs 
+
 /// CE vEnv fEnv e gives the code for an expression e on the basis of a variable and a function environment
     let rec CE vEnv fEnv = function
         | N n                   -> [CSTI n]
@@ -60,7 +65,7 @@ module CodeGeneration =
         | AVar x         ->
             match Map.find x (fst vEnv) with
                 | (GloVar addr,_) -> [CSTI addr]
-                | (LocVar addr,_) -> [CSTI (addr + snd vEnv)] //failwith "CA: Local variables not supported yet"
+                | (LocVar addr,_) -> [GETBP; CSTI addr; ADD] //failwith "CA: Local variables not supported yet"
         | AIndex(acc, e) -> failwith "CA: array indexing not supported yet"
         | ADeref e       -> failwith "CA: pointer dereferencing not supported yet"
 
@@ -79,10 +84,17 @@ module CodeGeneration =
 
 
 /// CS vEnv fEnv s gives the code for a statement s on the basis of a variable and a function environment
-    let rec CS vEnv (fEnv : funEnv) = function
+    let rec CS (vEnv : varEnv) (fEnv : funEnv) = function
         | PrintLn e         -> CE vEnv fEnv e @ [PRINTI; INCSP -1]
         | Ass(acc,e)        -> CA vEnv fEnv acc @ CE vEnv fEnv e @ [STI; INCSP -1]
-        | Block([],stms)    -> CSs vEnv fEnv stms
+        | Block(decs, stms)    -> 
+            let (vEnv', decsCode) = List.fold (fun (env, code) -> 
+                function 
+                    | VarDec (t,n)  -> 
+                        let (env', code') = allocate LocVar (t, n) env
+                        (env', code @ code')
+                    | _             -> failwith "Cs: function not supported in local declaration") (vEnv, []) decs
+            decsCode @ CSs vEnv' fEnv stms @ [INCSP -decs.Length]
         | Alt (GC gc)       ->
             let labelEnd = newLabel ()
             guardStm labelEnd vEnv fEnv gc @ [Label labelEnd]
@@ -90,14 +102,16 @@ module CodeGeneration =
             let labelStart = newLabel ()
             [Label labelStart] @ guardStm labelStart vEnv fEnv gc
         | Return e ->
-            let funcName = Option.get (snd fEnv)
-            let (_, _, decs) = Map.find funcName (fst fEnv)
             let exprInst =
                 match e with
                     | Some exp  -> CE vEnv fEnv exp
                     | None      -> []
-            exprInst @ [RET decs.Length]
-        | _                 -> failwith "CS: this statement is not supported yet"
+            let localVars = Map.filter (fun _ -> 
+                function 
+                    | (LocVar _, _) -> true 
+                    | _             -> false) (fst vEnv)
+            exprInst @ [RET localVars.Count]
+        | x                 -> failwith ("CS: this statement is not supported yet " + string x)
 
     and CSs vEnv fEnv stms = List.collect (CS vEnv fEnv) stms
     and guardStm label vEnv fEnv =
@@ -121,6 +135,7 @@ module CodeGeneration =
                 decs) <| fst fEnv, snd fEnv)
             | _                             -> failwith "Not a function"
 
+
 // Map<string, Var*Typ> * int
     let makeGlobalEnvs decs =
         let rec addv decs vEnv (fEnv : funEnv) =
@@ -135,17 +150,16 @@ module CodeGeneration =
                             let funLabel = newLabel ()
                             let endFunc = newLabel ()
                             let fEnv1 = allocateFunction funLabel func fEnv
-                            let vEnvLocal = List.fold (fun env ->
-                                    function
-                                        | (VarDec (t, n))   -> (Map.add n (LocVar (snd env), t) <| fst env, snd env + 1)
-                                        | _                 -> failwith "Not supported") vEnv xs
-                            // let vEnvLocal = List.fold (fun env x ->
-                            //     match x with
-                            //         | VarDec (t, n) -> allocate LocVar (t,n) env
-                            //         | _ -> failwith "Unsupported") vEnv xs
+                            // let (vEnvLocal, initCode) = List.fold (fun (env, code) -> 
+                            //     function 
+                            //         | VarDec (t, n) -> (Map.add n (LocVar, t) env, snd env + 1)
+                            //         | _ -> failwith "Function not supported in function declartion") ((fst vEnv, 0), []) xs
+                            let vEnvLocal = allocateDecs vEnv xs 
                             let codeStm = CS vEnvLocal (fst fEnv1, Some f) body
                             let (vEnv2, fEnv2, code2) = addv decr vEnv fEnv1
-                            (vEnv2, fEnv2,[GOTO endFunc] @ [Label funLabel] @ codeStm @ [Label endFunc] @ code2)
+                            (vEnv2, fEnv2, [GOTO endFunc] @ [Label funLabel] 
+                                @ codeStm 
+                                @ [Label endFunc] @ code2)
         addv decs (Map.empty, 0) (Map.empty, None)
 
 /// CP prog gives the code for a program prog
