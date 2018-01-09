@@ -19,11 +19,15 @@ module TypeCheck =
 
          | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&";"-"]        
                             -> tcDyadic gtenv ltenv f e1 e2   
-         | Apply (f, vs)    -> 
+         | Apply (f, args)  -> 
+            let ts = List.map (tcE gtenv ltenv) args
             match Map.tryFind f gtenv with 
-                | Some (FTyp (_, Some t)) -> t
-                | Some t                  -> t
-                | None                    -> failwith ("Function " + string f + " is undefined")
+                  | Some (FTyp (decTs, Some t)) ->
+                        if ts = decTs 
+                              then t 
+                              else failwith ("Argument types for the function " 
+                                    + string f + " does not match the function declaration")
+                  | _                           -> failwith ("Function " + string f + " is undefined")              
          | x                -> failwith ("tcE: not supported yet" + string x)
 
    and tcMonadic gtenv ltenv f e = match (f, tcE gtenv ltenv e) with
@@ -79,7 +83,16 @@ module TypeCheck =
             if Option.map (tcE gtenv ltenv) e = ftyp 
                   then ()
                   else failwith "Return type is different from function type"
-      | _               -> failwith "tcS: this statement is not supported yet"
+      | Call (p, args)  -> 
+            let ts = List.map (tcE gtenv ltenv) args
+            match Map.tryFind p gtenv with 
+                | Some (FTyp (decTs, None)) -> 
+                        if ts = decTs 
+                              then ()
+                              else failwith ("Argument types for the procedure " 
+                                    + string p + " does not match the procedure declaration")
+                | _                     -> failwith ("Procedure " + string p + " is undefined")
+      // | _               -> failwith "tcS: this statement is not supported yet"
 
    and tcGDec gtenv = function  
       | VarDec(t,s)                 -> Map.add s t gtenv

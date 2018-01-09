@@ -16,6 +16,7 @@ open GuardedCommands.Frontend.AST
 open GuardedCommands.Backend.CodeGeneration
 open Microsoft.FSharp.Text.Lexing
 open System.Text
+open System.IO
 
 open ParserUtil
 open CompilerUtil
@@ -71,13 +72,12 @@ let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
 // System.Console.WriteLine (string tokens)
 // printTokens (getBuffer "function f(x: int): int = { print x; return x+1 };")
 
-// printTokens (getBuffer "begin return 5 end"
-
-
-
-System.Console.WriteLine "Starting type checking"
+let filename = "Swap.gc";;
+let str = File.ReadAllText(filename);;
 // printTokens (getBuffer str)
-let tree = parseFromFile "fact.gc";;
+let tree = parseFromFile filename;;
+System.Console.WriteLine "Starting type checking..."
+
 let _ = tcP tree;;
 printfn "Type checking passed"
 printfn ""

@@ -111,7 +111,10 @@ module CodeGeneration =
                     | (LocVar _, _) -> true 
                     | _             -> false) (fst vEnv)
             exprInst @ [RET localVars.Count]
-        | x                 -> failwith ("CS: this statement is not supported yet " + string x)
+        | Call (p, exprs)       -> 
+            let (label, _, _) = Map.find p (fst fEnv)
+            List.collect (CE vEnv fEnv) exprs @ [CALL ((exprs.Length), label); INCSP -1]
+        // | x                 -> failwith ("CS: this statement is not supported yet " + string x)
 
     and CSs vEnv fEnv stms = List.collect (CS vEnv fEnv) stms
     and guardStm label vEnv fEnv =
@@ -150,15 +153,15 @@ module CodeGeneration =
                             let funLabel = newLabel ()
                             let endFunc = newLabel ()
                             let fEnv1 = allocateFunction funLabel func fEnv
-                            // let (vEnvLocal, initCode) = List.fold (fun (env, code) -> 
-                            //     function 
-                            //         | VarDec (t, n) -> (Map.add n (LocVar, t) env, snd env + 1)
-                            //         | _ -> failwith "Function not supported in function declartion") ((fst vEnv, 0), []) xs
                             let vEnvLocal = allocateDecs vEnv xs 
                             let codeStm = CS vEnvLocal (fst fEnv1, Some f) body
                             let (vEnv2, fEnv2, code2) = addv decr vEnv fEnv1
+                            let procedureEnd = 
+                                if tyOpt.IsNone 
+                                    then [RET (xs.Length - 1)]
+                                    else []
                             (vEnv2, fEnv2, [GOTO endFunc] @ [Label funLabel] 
-                                @ codeStm 
+                                @ codeStm @ procedureEnd
                                 @ [Label endFunc] @ code2)
         addv decs (Map.empty, 0) (Map.empty, None)
 

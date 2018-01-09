@@ -1,0 +1,8 @@
+begin
+    y:bool,
+    function f(x: bool) : int = 
+    {
+        return 1
+    };
+    y:=f(1)
+end

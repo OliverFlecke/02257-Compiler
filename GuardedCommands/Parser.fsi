@@ -3,6 +3,7 @@ module Parser
 type token = 
   | RETURN
   | FUNCTION
+  | PROCEDURE
   | HIGH
   | EOF
   | PRINT
@@ -45,6 +46,7 @@ type token =
 type tokenId = 
     | TOKEN_RETURN
     | TOKEN_FUNCTION
+    | TOKEN_PROCEDURE
     | TOKEN_HIGH
     | TOKEN_EOF
     | TOKEN_PRINT

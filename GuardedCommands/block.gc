@@ -1,6 +1,13 @@
 begin 
     x: int,
-    z: int,
-    function f (y: int) : int = z:= 5; return y + z
+    function f (y: int) : int = 
+    {
+        z: int;
+        {
+            j: int;
+            z:= 5; 
+            return y + z
+        }
+    };
     print f(2)
 end
