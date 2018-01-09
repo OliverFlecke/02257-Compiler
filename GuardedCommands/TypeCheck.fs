@@ -21,8 +21,9 @@ module TypeCheck =
                             -> tcDyadic gtenv ltenv f e1 e2   
          | Apply (f, vs)    -> 
             match Map.tryFind f gtenv with 
-                | Some t    -> t
-                | None      -> failwith ("Function " + string f + " is undefined")
+                | Some (FTyp (_, Some t)) -> t
+                | Some t                  -> t
+                | None                    -> failwith ("Function " + string f + " is undefined")
          | x                -> failwith ("tcE: not supported yet" + string x)
 
    and tcMonadic gtenv ltenv f e = match (f, tcE gtenv ltenv e) with
@@ -83,7 +84,7 @@ module TypeCheck =
                   match x with 
                         | VarDec (t, n) -> Map.add n t ev
                         | _             -> failwith "You cannot define nested function" ) gtenv decs
-            let gtenv' = addFuncToEnv gtenv f topt
+            let gtenv' = addFuncToEnv f topt decs gtenv
             tcS gtenv' ltenv stm |> ignore 
             let returnStm = List.filter (function 
                   | Return _  -> true 
@@ -96,9 +97,10 @@ module TypeCheck =
             
             
    and allUnique ls : bool = Seq.length (Seq.distinct ls) = List.length ls
-   and addFuncToEnv env f = function
-                        | Some ty   -> Map.add f ty env 
-                        | None      -> Map.add f UnitTyp env
+   and addFuncToEnv f topt decs = Map.add f (FTyp (List.map decsToTyps decs, topt))
+   and decsToTyps = function 
+      | VarDec (t, _)         -> t 
+      | FunDec (t, _, ds, _)  -> FTyp (List.map decsToTyps ds, t)
    and allStatments stmt : Stm list = 
       match stmt with 
             | Block (_, stmts)      -> List.collect allStatments stmts

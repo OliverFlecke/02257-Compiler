@@ -79,11 +79,12 @@ let _ = tcP tree;;
 printfn "Type checking passed"
 printfn ""
 
-// let code = CP tree;;
+let code = CP tree;;
 // // let _ = go tree;;
-// // let _ = goTrace tree;;
+let _ = goTrace tree;;
+// List.map (fun x -> System.Console.WriteLine (string x)) code
 
-let _ = exec "Ex7.gc"
+// let _ = execTrace "Ex7.gc"
 
 
 // Test of programs covered by the first task (Section 3.7):

@@ -39,7 +39,6 @@ module AST =
                                          (* Function and procedure declaration *) 
 
    and Typ  = 
-         | UnitTyp
          | ITyp                          (* Type int                    *)
          | BTyp                          (* Type bool                   *)
          | ATyp of Typ * int option      (* Type array                  *)
