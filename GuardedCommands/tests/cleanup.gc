@@ -1,0 +1,16 @@
+begin
+    procedure f() = 
+    {
+        a: int[3];
+        a[0] := 1;
+        a[1] := 2;
+        a[2] := 3
+    },
+    procedure g() = 
+    {
+        b : int[3];
+        print b[2]
+    };
+    f();
+    g()
+end
