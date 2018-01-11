@@ -51,9 +51,8 @@ module CodeGeneration =
     let addJump jump C =                    (* jump is GOTO or RET *)
         let C1 = deadcode C
         match (jump, C1) with
-        | (GOTO lab1, Label lab2 :: _) -> if lab1=lab2 then C1 
-                                          else GOTO lab1 :: C1
-        | _                            -> jump :: C1
+        | (GOTO lab1, Label lab2 :: _) when lab1=lab2   ->         C1
+        | _                                             -> jump :: C1
     
     let addGOTO lab C = addJump (GOTO lab) C
 
@@ -103,11 +102,7 @@ module CodeGeneration =
             | B b                   -> addCST (if b then 1 else 0) k
             | Access acc            -> CA vEnv fEnv acc (LDI :: k)
             | Apply("-", [e])       -> CE vEnv fEnv e (addCST 0 (SWAP :: SUB :: k))
-            | Apply("!", [e])       ->
-                let labelFalse = newLabel ()
-                let labelEnd = newLabel ()
-                CE vEnv fEnv e ([IFZERO labelFalse; CSTI 0; GOTO labelEnd;
-                Label labelFalse; CSTI 1; Label labelEnd] @ k) 
+            | Apply("!", [e])       -> addNOT (CE vEnv fEnv e k) 
             | Apply("&&",[b1;b2])   -> let labend   = newLabel()
                                        let labfalse = newLabel()
                                        CE vEnv fEnv b1 ([IFZERO labfalse] 
@@ -123,11 +118,11 @@ module CodeGeneration =
                         | ">"     -> [SWAP; LT]
                         | "<="    -> [CSTI 1; ADD; LT]
                         | ">="    -> [CSTI 1; SUB; SWAP; LT]
-                        | _       -> failwith "CE: this case is not possible"
+                        | op      -> failwith ("CE: the operator '" + op + "' is not supported")
                 CE vEnv fEnv e1 (CE vEnv fEnv e2 (ins @ k)) 
             | Apply (f, es)     ->
                 let (label, _, _) = Map.find f (fst fEnv)
-                List.fold (fun k' e -> CE vEnv fEnv e k') ([CALL ((es.Length), label)] @ k) (List.rev es)
+                List.fold (fun k' e -> CE vEnv fEnv e k') (makeCall es.Length label k) (List.rev es)
             | Addr x            -> CA vEnv fEnv x k
             | x                 -> failwith ("CE: not ssupported yet " + string x)
 

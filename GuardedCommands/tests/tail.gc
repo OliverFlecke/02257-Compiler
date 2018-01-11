@@ -1,0 +1,10 @@
+begin 
+    function f(x : int) : int = 
+    {
+        if 
+            x = 3 -> return x
+        fi;
+        return f(x+1)
+    };
+    print f(0)
+end
