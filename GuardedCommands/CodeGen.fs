@@ -46,13 +46,17 @@ module CodeGeneration =
                                    CE vEnv fEnv b1 @ [IFZERO labfalse] @ CE vEnv fEnv b2
                                    @ [GOTO labend; Label labfalse; CSTI 0; Label labend]
 
-        | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "*"; "=";"-"]
+        | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+";"*";"=";"-";">";"<";">=";"<="]
                              -> let ins = match o with
-                                          | "+"  -> [ADD]
-                                          | "*"  -> [MUL]
-                                          | "="  -> [EQ]
-                                          | "-"  -> [SUB]
-                                          | _    -> failwith "CE: this case is not possible"
+                                          | "+"     -> [ADD]
+                                          | "*"     -> [MUL]
+                                          | "="     -> [EQ]
+                                          | "-"     -> [SUB]
+                                          | "<"     -> [LT]
+                                          | ">"     -> [SWAP; LT]
+                                          | "<="    -> [CSTI 1; ADD; LT]
+                                          | ">="    -> [CSTI 1; SUB; SWAP; LT]
+                                          | _       -> failwith "CE: this case is not possible"
                                 CE vEnv fEnv e1 @ CE vEnv fEnv e2 @ ins
         | Apply (f, es)     ->
             let (label, _, _) = Map.find f (fst fEnv)
@@ -66,7 +70,7 @@ module CodeGeneration =
             match Map.find x (fst vEnv) with
                 | (GloVar addr,_) -> [CSTI addr]
                 | (LocVar addr,_) -> [GETBP; CSTI addr; ADD] //failwith "CA: Local variables not supported yet"
-        | AIndex(acc, e) -> failwith "CA: array indexing not supported yet"
+        | AIndex(acc, e) -> CA vEnv fEnv acc @ [LDI] @ CE vEnv fEnv e @ [ADD]
         | ADeref e       -> failwith "CA: pointer dereferencing not supported yet"
 
 
@@ -76,13 +80,20 @@ module CodeGeneration =
         match typ with
             | ATyp (ATyp _, _) ->
                 raise (Failure "allocate: array of arrays not permitted")
-            | ATyp (t, Some i) -> failwith "allocate: array not supported yet"
+            | ATyp (_, Some n) ->
+                let varKind = kind (fdepth + n)
+                let env' = (Map.add x (varKind, typ) env, fdepth + n + 1)
+                match varKind with 
+                    | LocVar _ -> (env', [INCSP n; GETBP; CSTI fdepth; ADD])
+                    | GloVar _ -> (env', [INCSP n; CSTI fdepth])
             | _ ->
-                let newEnv = (Map.add x (kind fdepth, typ) env, fdepth+1)
+                let env' = (Map.add x (kind fdepth, typ) env, fdepth+1)
                 let code = [INCSP 1]
-                (newEnv, code)
+                (env', code)
 
-
+    let decsLength = List.fold (+) 0 << List.map (function 
+        | VarDec (ATyp (_, Some n), _)  -> n + 1
+        | _                             -> 1)
 /// CS vEnv fEnv s gives the code for a statement s on the basis of a variable and a function environment
     let rec CS (vEnv : varEnv) (fEnv : funEnv) = function
         | PrintLn e         -> CE vEnv fEnv e @ [PRINTI; INCSP -1]
@@ -94,7 +105,8 @@ module CodeGeneration =
                         let (env', code') = allocate LocVar (t, n) env
                         (env', code @ code')
                     | _             -> failwith "Cs: function not supported in local declaration") (vEnv, []) decs
-            decsCode @ CSs vEnv' fEnv stms @ [INCSP -decs.Length]
+            
+            decsCode @ CSs vEnv' fEnv stms @ [INCSP -(decsLength decs)]
         | Alt (GC gc)       ->
             let labelEnd = newLabel ()
             guardStm labelEnd vEnv fEnv gc @ [Label labelEnd]
@@ -106,11 +118,7 @@ module CodeGeneration =
                 match e with
                     | Some exp  -> CE vEnv fEnv exp
                     | None      -> []
-            let localVars = Map.filter (fun _ -> 
-                function 
-                    | (LocVar _, _) -> true 
-                    | _             -> false) (fst vEnv)
-            exprInst @ [RET localVars.Count]
+            exprInst @ [RET (snd vEnv)]
         | Call (p, exprs)       -> 
             let (label, _, _) = Map.find p (fst fEnv)
             List.collect (CE vEnv fEnv) exprs @ [CALL ((exprs.Length), label); INCSP -1]

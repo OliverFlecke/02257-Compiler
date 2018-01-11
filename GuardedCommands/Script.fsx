@@ -61,7 +61,7 @@ System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 
 // // The parse tree for Ex3.gc
 // List.item 2 pts ;;
-exec "Ex2.gc"
+// exec "Ex2.gc"
 
 let printTokens (lexbuf : LexBuffer<_>) =
   while not lexbuf.IsPastEndOfStream do
@@ -72,7 +72,7 @@ let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
 // System.Console.WriteLine (string tokens)
 // printTokens (getBuffer "function f(x: int): int = { print x; return x+1 };")
 
-let filename = "Swap.gc";;
+let filename = "A3.gc";;
 let str = File.ReadAllText(filename);;
 // printTokens (getBuffer str)
 let tree = parseFromFile filename;;

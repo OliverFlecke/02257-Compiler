@@ -1,0 +1,6 @@
+begin 
+    a : int[3];
+    a[0] := 1;
+    a[2] := 3;
+    print a[2]
+end

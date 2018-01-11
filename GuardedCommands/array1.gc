@@ -1,0 +1,6 @@
+begin
+  a : int[3],
+  function g(c: int[]): int = {c[0] := 25; print c[0]; return -1};
+  print g(a);
+  print a[0]
+end

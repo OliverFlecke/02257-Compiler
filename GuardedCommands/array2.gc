@@ -1,0 +1,9 @@
+begin
+    function f(): int = 
+    {
+        b: int[2]; 
+        b[1] := 7; 
+        return b[1]
+    };
+  print f()
+end

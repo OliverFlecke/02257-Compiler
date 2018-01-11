@@ -7,6 +7,12 @@ open GuardedCommands.Frontend.AST
 
 module TypeCheck = 
 
+   let matchTypesFunction = 
+      function
+            | (ATyp (ty, _), ATyp (ty', _)) when ty = ty'   -> true
+            | (a, b) when a = b                             -> true
+            | _                                             -> false 
+            
 /// tcE gtenv ltenv e gives the type for expression e on the basis of type environments gtenv and ltenv
 /// for global and local variables 
    let rec tcE gtenv ltenv = function                            
@@ -17,16 +23,17 @@ module TypeCheck =
          | Apply(f,[e]) when List.exists (fun x ->  x=f) ["-"; "!"]  
                             -> tcMonadic gtenv ltenv f e        
 
-         | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&";"-"]        
+         | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&";"-";"<";">";"<=";">="]        
                             -> tcDyadic gtenv ltenv f e1 e2   
          | Apply (f, args)  -> 
             let ts = List.map (tcE gtenv ltenv) args
             match Map.tryFind f gtenv with 
-                  | Some (FTyp (decTs, Some t)) ->
-                        if ts = decTs 
-                              then t 
+                  | Some (FTyp (decTs, Some funTy)) -> 
+                        if List.forall matchTypesFunction (List.zip ts decTs)
+                              then funTy
                               else failwith ("Argument types for the function " 
-                                    + string f + " does not match the function declaration")
+                                                + string f + " does not match the function declaration\n" +
+                                                "Expected " + string decTs + " Actual: " + string ts)
                   | _                           -> failwith ("Function " + string f + " is undefined")              
          | x                -> failwith ("tcE: not supported yet" + string x)
 
@@ -36,9 +43,9 @@ module TypeCheck =
                                    | _           -> failwith "illegal/illtyped monadic expression" 
    
    and tcDyadic gtenv ltenv f e1 e2 = match (f, tcE gtenv ltenv e1, tcE gtenv ltenv e2) with
-                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+";"*";"-"]  -> ITyp
-                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["="] -> BTyp
-                                      | (o, BTyp, BTyp) when List.exists (fun x ->  x=o) ["&&";"="]     -> BTyp 
+                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+";"*";"-"]            -> ITyp
+                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["=";">";"<";">=";"<="]  -> BTyp
+                                      | (o, BTyp, BTyp) when List.exists (fun x ->  x=o) ["&&";"="]               -> BTyp 
                                       | _                      -> failwith("illegal/illtyped dyadic expression: " + f)
 
    and tcNaryFunction gtenv ltenv f es = failwith "type check: functions not supported yet"
@@ -56,7 +63,13 @@ module TypeCheck =
                              | None   -> failwith ("no declaration for : " + x)
                              | Some t -> t
                  | Some t -> t            
-         | AIndex(acc, e) -> failwith "tcA: array indexing not supported yes"
+         | AIndex(acc, e) -> 
+            match tcE gtenv ltenv e with 
+                  | ITyp      -> ()
+                  | ty        -> failwith ("Expression on array " + string acc + " is not the expected type int. Actual type: " + string ty) 
+            match tcA gtenv ltenv acc with 
+                  | ATyp (ty, _)    -> ty
+                  | _               -> failwith ("Not an array")
          | ADeref e       -> failwith "tcA: pointer dereferencing not supported yes"
  
 
