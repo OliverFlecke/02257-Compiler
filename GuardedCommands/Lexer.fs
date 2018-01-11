@@ -1,4 +1,4 @@
-# 1 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 1 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
  
 module Lexer
 open System
@@ -26,7 +26,7 @@ let keyword s =
     | "procedure" -> PROCEDURE
     | _           -> NAME s  
 
-# 29 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 29 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
 let trans : uint16[] array = 
     [| 
    (* State 0 *)
@@ -105,150 +105,150 @@ and tokenize  (lexbuf : Microsoft.FSharp.Text.Lexing.LexBuffer<_>) = _fslex_toke
 and _fslex_tokenize  _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
   | 0 -> ( 
-# 42 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 42 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  tokenize lexbuf 
-# 110 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 110 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 1 -> ( 
-# 43 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 43 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  lexbuf.EndPos <- lexbuf.EndPos.NextLine; tokenize lexbuf 
-# 115 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 115 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 2 -> ( 
-# 44 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 44 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  INT<| Int32.Parse(Encoding.UTF8.GetString(lexbuf.Lexeme)) 
-# 120 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 120 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 3 -> ( 
-# 45 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 45 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  LP  
-# 125 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 125 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 4 -> ( 
-# 46 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 46 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  RP  
-# 130 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 130 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 5 -> ( 
-# 47 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 47 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  LSP 
-# 135 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 135 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 6 -> ( 
-# 48 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 48 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  RSP 
-# 140 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 140 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 7 -> ( 
-# 49 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 49 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  LCP 
-# 145 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 145 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 8 -> ( 
-# 50 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 50 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  RCP 
-# 150 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 150 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 9 -> ( 
-# 51 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 51 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  COMMA 
-# 155 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 155 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 10 -> ( 
-# 52 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 52 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  SEMI  
-# 160 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 160 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 11 -> ( 
-# 53 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 53 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  COLON 
-# 165 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 165 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 12 -> ( 
-# 54 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 54 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  BAR 
-# 170 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 170 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 13 -> ( 
-# 55 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 55 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  TO 
-# 175 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 175 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 14 -> ( 
-# 56 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 56 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  ASG   
-# 180 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 180 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 15 -> ( 
-# 57 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 57 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  NEG 
-# 185 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 185 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 16 -> ( 
-# 58 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 58 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  AND 
-# 190 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 190 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 17 -> ( 
-# 59 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 59 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  NEQ 
-# 195 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 195 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 18 -> ( 
-# 60 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 60 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  LT 
-# 200 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 200 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 19 -> ( 
-# 61 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 61 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  GT 
-# 205 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 205 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 20 -> ( 
-# 62 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 62 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  LE 
-# 210 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 210 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 21 -> ( 
-# 63 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 63 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  TIMES 
-# 215 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 215 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 22 -> ( 
-# 64 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 64 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  MINUS 
-# 220 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 220 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 23 -> ( 
-# 65 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 65 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  EQ 
-# 225 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 225 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 24 -> ( 
-# 66 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 66 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  PLUS 
-# 230 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 230 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 25 -> ( 
-# 67 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 67 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  ADDR 
-# 235 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 235 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 26 -> ( 
-# 68 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 68 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  DEREF 
-# 240 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 240 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 27 -> ( 
-# 69 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 69 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  keyword(Encoding.UTF8.GetString(lexbuf.Lexeme)) 
-# 245 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 245 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 28 -> ( 
-# 70 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
+# 70 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fsl"
                                  EOF 
-# 250 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 250 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | _ -> failwith "tokenize"
 
-# 3000000 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"
+# 3000000 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Lexer.fs"

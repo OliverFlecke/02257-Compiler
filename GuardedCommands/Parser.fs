@@ -3,11 +3,11 @@ module Parser
 #nowarn "64";; // turn off warnings that type variables used in production annotations are instantiated to concrete type
 open Microsoft.FSharp.Text.Lexing
 open Microsoft.FSharp.Text.Parsing.ParseHelpers
-# 1 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 1 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
 
 open GuardedCommands.Frontend.AST
 
-# 10 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 10 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
 // This type is the type of tokens accepted by the parser
 type token = 
   | ADDR
@@ -395,7 +395,7 @@ let _fsyacc_reductionSymbolCounts = [|1us; 1us; 2us; 5us; 3us; 1us; 1us; 1us; 4u
 let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 3us; 3us; 4us; 4us; 5us; 5us; 5us; 5us; 6us; 6us; 6us; 7us; 7us; 8us; 8us; 9us; 9us; 9us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 11us; 11us; 12us; 12us; 13us; 13us; 14us; 14us; 15us; 15us; 15us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; |]
 let _fsyacc_immediateActions = [|65535us; 49152us; 65535us; 49152us; 65535us; 16386us; 65535us; 65535us; 65535us; 65535us; 16387us; 65535us; 16388us; 16389us; 16390us; 65535us; 65535us; 65535us; 16392us; 16393us; 65535us; 16394us; 65535us; 65535us; 65535us; 16395us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16396us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16397us; 16399us; 65535us; 65535us; 16401us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16403us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16404us; 65535us; 65535us; 16407us; 16408us; 65535us; 65535us; 65535us; 65535us; 16409us; 65535us; 16410us; 65535us; 65535us; 16411us; 65535us; 65535us; 16412us; 65535us; 65535us; 65535us; 65535us; 16416us; 65535us; 65535us; 16418us; 16420us; 65535us; 65535us; 65535us; 16422us; 65535us; 16425us; 16427us; 16428us; 65535us; 16429us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16441us; 65535us; 65535us; |]
 let _fsyacc_reductions ()  =    [| 
-# 398 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 398 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -404,7 +404,7 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startMain));
-# 407 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 407 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -413,118 +413,118 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startProg));
-# 416 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 416 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 42 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 42 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                               _1 
                    )
-# 42 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 42 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 427 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 427 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 45 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 45 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                               P(_2, _4) 
                    )
-# 45 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 45 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 439 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 439 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 46 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 46 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                               P([], _2) 
                    )
-# 46 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 46 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 450 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 450 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 49 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 49 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              BTyp 
                    )
-# 49 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 49 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 460 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 460 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 50 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 50 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              ITyp 
                    )
-# 50 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 50 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 470 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 470 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 53 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 53 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 
                    )
-# 53 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 53 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 481 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 481 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : int)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 54 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 54 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              ATyp (_1, Some _3) 
                    )
-# 54 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 54 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 493 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 493 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 55 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 55 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              ATyp (_1, None) 
                    )
-# 55 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 55 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 504 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 504 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 56 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 56 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              PTyp _2 
                    )
-# 56 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 56 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 515 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 515 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 59 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 59 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                                            VarDec(_3,_1) 
                    )
-# 59 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 59 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec));
-# 527 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 527 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
@@ -533,12 +533,12 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 60 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 60 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                                            FunDec (Some _7, _2, _4, _9) 
                    )
-# 60 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 60 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec));
-# 541 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 541 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
@@ -546,278 +546,278 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 61 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 61 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                                            FunDec (None, _2, _4, _7) 
                    )
-# 61 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 61 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec));
-# 554 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 554 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 64 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 64 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [] 
                    )
-# 64 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 64 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 564 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 564 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 65 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 65 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 
                    )
-# 65 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 65 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 575 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 575 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 68 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 68 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [_1] 
                    )
-# 68 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 68 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 586 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 586 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 69 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 69 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 :: _3 
                    )
-# 69 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 69 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 598 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 598 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 72 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 72 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              AVar _1 
                    )
-# 72 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 72 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Access));
-# 609 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 609 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 73 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 73 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              AIndex (_1, _3) 
                    )
-# 73 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 73 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Access));
-# 621 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 621 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 74 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 74 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              ADeref _1 
                    )
-# 74 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 74 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Access));
-# 632 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 632 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 77 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 77 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              PrintLn _2 
                    )
-# 77 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 77 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 643 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 643 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 78 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 78 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Ass(_1,_3)  
                    )
-# 78 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 78 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 655 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 655 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 79 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 79 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Do (GC []) 
                    )
-# 79 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 79 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 665 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 665 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 80 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 80 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Alt (GC []) 
                    )
-# 80 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 80 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 675 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 675 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 81 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 81 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Block(_2, _4) 
                    )
-# 81 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 81 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 687 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 687 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 82 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 82 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Block([], _2) 
                    )
-# 82 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 82 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 698 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 698 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : GuardedCommand)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 83 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 83 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Alt _2 
                    )
-# 83 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 83 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 709 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 709 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : GuardedCommand)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 84 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 84 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Do _2  
                    )
-# 84 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 84 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 720 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 720 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 85 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 85 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Return (Some _2) 
                    )
-# 85 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 85 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 731 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 731 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 86 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 86 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Call (_1, _3) 
                    )
-# 86 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 86 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 743 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 743 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 89 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 89 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [] 
                    )
-# 89 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 89 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 753 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 753 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 90 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 90 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 
                    )
-# 90 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 90 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 764 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 764 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 93 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 93 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [_1] 
                    )
-# 93 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 93 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 775 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 775 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 94 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 94 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 :: _3 
                    )
-# 94 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 94 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 787 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 787 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 97 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 97 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              GC [] 
                    )
-# 97 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 97 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : GuardedCommand));
-# 797 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 797 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : (Exp * Stm list) list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 98 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 98 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              GC _1 
                    )
-# 98 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 98 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : GuardedCommand));
-# 808 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 808 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 101 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 101 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [(_1,_3)]   
                    )
-# 101 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 101 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : (Exp * Stm list) list));
-# 820 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 820 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
@@ -825,254 +825,254 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 102 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 102 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                            (_1,_3)::_5 
                    )
-# 102 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 102 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : (Exp * Stm list) list));
-# 833 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 833 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 105 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 105 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [] 
                    )
-# 105 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 105 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp list));
-# 843 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 843 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 106 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 106 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [_1] 
                    )
-# 106 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 106 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp list));
-# 854 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 854 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 107 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 107 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 :: _3 
                    )
-# 107 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 107 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp list));
-# 866 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 866 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 110 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 110 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Access _1 
                    )
-# 110 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 110 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 877 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 877 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : int)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 111 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 111 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              N _1 
                    )
-# 111 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 111 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 888 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 888 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 112 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 112 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              B _1 
                    )
-# 112 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 112 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 899 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 899 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 113 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 113 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _2 
                    )
-# 113 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 113 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 910 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 910 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 114 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 114 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("-", [_2])
                    )
-# 114 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 114 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 921 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 921 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 115 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 115 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("!", [_2])
                    )
-# 115 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 115 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 932 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 932 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 116 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 116 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("*", [_1; _3])
                    )
-# 116 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 116 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 944 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 944 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 117 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 117 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("+", [_1; _3])
                    )
-# 117 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 117 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 956 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 956 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 118 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 118 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("-", [_1; _3])
                    )
-# 118 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 118 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 968 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 968 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 119 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 119 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("&&", [_1; _3])
                    )
-# 119 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 119 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 980 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 980 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 120 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 120 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("=", [_1; _3])
                    )
-# 120 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 120 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 992 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 992 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 121 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 121 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<=", [_1; _3])
                    )
-# 121 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 121 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 1004 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 1004 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 122 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 122 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply(">", [_1; _3])
                    )
-# 122 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 122 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 1016 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 1016 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 123 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 123 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<", [_1; _3])
                    )
-# 123 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 123 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 1028 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 1028 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 124 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 124 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<>", [_1; _3])
                    )
-# 124 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 124 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 1040 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 1040 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 125 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 125 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply (_1, _3) 
                    )
-# 125 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 125 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 1052 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 1052 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 126 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 126 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Addr _2 
                    )
-# 126 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 126 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 1063 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 1063 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 127 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 127 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Access _2 
                    )
-# 127 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
+# 127 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
 |]
-# 1075 "C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
+# 1075 "c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\Parser.fs"
 let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> = 
   { reductions= _fsyacc_reductions ();
     endOfInputTag = _fsyacc_endOfInputTag;
