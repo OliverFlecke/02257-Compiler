@@ -61,6 +61,7 @@ module CodeGeneration =
         | Apply (f, es)     ->
             let (label, _, _) = Map.find f (fst fEnv)
             List.collect (CE vEnv fEnv) es @ [CALL ((es.Length), label)]
+        | Addr x            -> CA vEnv fEnv x
         | x                 -> failwith ("CE: not supported yet " + string x)
 
 
@@ -71,11 +72,11 @@ module CodeGeneration =
                 | (GloVar addr,_) -> [CSTI addr]
                 | (LocVar addr,_) -> [GETBP; CSTI addr; ADD] //failwith "CA: Local variables not supported yet"
         | AIndex(acc, e) -> CA vEnv fEnv acc @ [LDI] @ CE vEnv fEnv e @ [ADD]
-        | ADeref e       -> failwith "CA: pointer dereferencing not supported yet"
+        | ADeref e       -> CE vEnv fEnv e
 
 
 (* Bind declared variable in env and generate code to allocate it: *)
-    let allocate (kind : int -> Var) (typ, x) (vEnv : varEnv)  =
+    let rec allocate (kind : int -> Var) (typ, x) (vEnv : varEnv)  =
         let (env, fdepth) = vEnv
         match typ with
             | ATyp (ATyp _, _) ->

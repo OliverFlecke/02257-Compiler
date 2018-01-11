@@ -35,6 +35,8 @@ module TypeCheck =
                                                 + string f + " does not match the function declaration\n" +
                                                 "Expected " + string decTs + " Actual: " + string ts)
                   | _                           -> failwith ("Function " + string f + " is undefined")              
+         | Addr x           -> PTyp (tcA gtenv ltenv x)
+         | Access acc       -> tcA gtenv ltenv acc
          | x                -> failwith ("tcE: not supported yet" + string x)
 
    and tcMonadic gtenv ltenv f e = match (f, tcE gtenv ltenv e) with
@@ -70,7 +72,10 @@ module TypeCheck =
             match tcA gtenv ltenv acc with 
                   | ATyp (ty, _)    -> ty
                   | _               -> failwith ("Not an array")
-         | ADeref e       -> failwith "tcA: pointer dereferencing not supported yes"
+         | ADeref e       -> 
+            match tcE gtenv ltenv e with 
+                  | PTyp t    -> t
+                  | _         -> failwith (string e + " is not a pointer")
  
 
 /// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
@@ -100,10 +105,11 @@ module TypeCheck =
             let ts = List.map (tcE gtenv ltenv) args
             match Map.tryFind p gtenv with 
                 | Some (FTyp (decTs, None)) -> 
-                        if ts = decTs 
+                        if List.forall matchTypesFunction (List.zip ts decTs)
                               then ()
                               else failwith ("Argument types for the procedure " 
-                                    + string p + " does not match the procedure declaration")
+                                    + string p + " does not match the procedure declaration" +
+                                    "Expeced: " + string decTs + ", Actual: " + string ts)
                 | _                     -> failwith ("Procedure " + string p + " is undefined")
       // | _               -> failwith "tcS: this statement is not supported yet"
 

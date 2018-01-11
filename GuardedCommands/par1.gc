@@ -1,7 +1,12 @@
 ﻿begin
   x : int,
-  procedure p(y: ^int) = { print y^; y^ := 1 };
-  x:= 0;
+  procedure p(y: ^int) = 
+  { 
+    print y^; 
+    y^ := 7 
+  };
+
+  x:= 5;
   p(&x);
   print x
 end

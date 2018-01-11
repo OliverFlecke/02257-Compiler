@@ -72,7 +72,7 @@ let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
 // System.Console.WriteLine (string tokens)
 // printTokens (getBuffer "function f(x: int): int = { print x; return x+1 };")
 
-let filename = "A3.gc";;
+let filename = "block1.gc";;
 let str = File.ReadAllText(filename);;
 // printTokens (getBuffer str)
 let tree = parseFromFile filename;;
@@ -82,6 +82,7 @@ let _ = tcP tree;;
 printfn "Type checking passed"
 printfn ""
 
+printfn "Code generation starting..."
 let code = CP tree;;
 
 // // let _ = go tree;;
