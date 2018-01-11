@@ -103,7 +103,8 @@ module CodeGeneration =
             let (vEnv', decsCode) = List.fold (fun (env, code) -> 
                 function 
                     | VarDec (t,n)  -> 
-                        let (env', code') = allocate LocVar (t, n) env
+                        let kind = if (snd fEnv).IsNone then GloVar else LocVar
+                        let (env', code') = allocate kind (t, n) env
                         (env', code @ code')
                     | _             -> failwith "Cs: function not supported in local declaration") (vEnv, []) decs
             

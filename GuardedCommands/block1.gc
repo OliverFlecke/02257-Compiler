@@ -1,0 +1,7 @@
+begin 
+    {
+        i: int;
+        i := 5;
+        print i
+    }
+end 
