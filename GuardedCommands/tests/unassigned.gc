@@ -1,0 +1,5 @@
+begin 
+    x : int;
+    print x;
+    x := 1
+end

@@ -3,6 +3,7 @@
 // This file is obtained by an adaption of the file MicroC/Comp.fs by Peter Sestoft
 open Machine
 open GuardedCommands.Frontend.AST
+
 module CodeGeneration =
 
 // Optimizations
@@ -17,7 +18,7 @@ module CodeGeneration =
         match C with
             | Label lab :: _ -> (lab, C)
             | GOTO lab :: _  -> (lab, C)
-            | _              -> let lab = newLabel() 
+            | _              -> let lab = newLabel()
                                 (lab, Label lab :: C)
 
     let makeJump C : instr * instr list =          (* Unconditional jump to C *)
@@ -26,7 +27,7 @@ module CodeGeneration =
             | Label lab :: RET m :: _ -> (RET m, C)
             | Label lab          :: _ -> (GOTO lab, C)
             | GOTO lab           :: _ -> (GOTO lab, C)
-            | _                       -> let lab = newLabel() 
+            | _                       -> let lab = newLabel()
                                          (GOTO lab, Label lab :: C)
 
     let makeCall m lab C : instr list =
@@ -44,8 +45,8 @@ module CodeGeneration =
     let addNOT C =
         match C with
             | NOT        :: C1 -> C1
-            | IFZERO lab :: C1 -> IFNZRO lab :: C1 
-            | IFNZRO lab :: C1 -> IFZERO lab :: C1 
+            | IFZERO lab :: C1 -> IFNZRO lab :: C1
+            | IFNZRO lab :: C1 -> IFZERO lab :: C1
             | _                -> NOT :: C
 
     let addJump jump C =                    (* jump is GOTO or RET *)
@@ -53,7 +54,7 @@ module CodeGeneration =
         match (jump, C1) with
         | (GOTO lab1, Label lab2 :: _) when lab1=lab2   ->         C1
         | _                                             -> jump :: C1
-    
+
     let addGOTO lab C = addJump (GOTO lab) C
 
     let rec addCST i C =
@@ -93,22 +94,22 @@ module CodeGeneration =
     let allocateDecs vEnv decs = List.fold (fun env ->
         function
             | (VarDec (t, n))   -> (Map.add n (LocVar (snd env), t) <| fst env, snd env + 1)
-            | _                 -> failwith "Not supported") (fst vEnv, 0) decs 
+            | _                 -> failwith "Not supported") (fst vEnv, 0) decs
 
 /// CE vEnv fEnv e gives the code for an expression e on the basis of a variable and a function environment
-    let rec CE vEnv fEnv expr k = 
-        match expr with 
+    let rec CE vEnv fEnv expr k =
+        match expr with
             | N n                   -> addCST n k
             | B b                   -> addCST (if b then 1 else 0) k
             | Access acc            -> CA vEnv fEnv acc (LDI :: k)
             | Apply("-", [e])       -> CE vEnv fEnv e (addCST 0 (SWAP :: SUB :: k))
-            | Apply("!", [e])       -> addNOT (CE vEnv fEnv e k) 
+            | Apply("!", [e])       -> addNOT (CE vEnv fEnv e k)
             | Apply("&&",[b1;b2])   -> let labend   = newLabel()
                                        let labfalse = newLabel()
-                                       CE vEnv fEnv b1 ([IFZERO labfalse] 
+                                       CE vEnv fEnv b1 ([IFZERO labfalse]
                                        @ CE vEnv fEnv b2 ([GOTO labend; Label labfalse; CSTI 0; Label labend] @ k))
-            | Apply(o,[e1;e2]) when List.exists ((=)o) ["+";"*";"=";"-";">";"<";">=";"<="] -> 
-                let ins = 
+            | Apply(o,[e1;e2]) when List.exists ((=)o) ["+";"*";"=";"-";">";"<";">=";"<="] ->
+                let ins =
                     match o with
                         | "+"     -> [ADD]
                         | "*"     -> [MUL]
@@ -119,7 +120,7 @@ module CodeGeneration =
                         | "<="    -> [CSTI 1; ADD; LT]
                         | ">="    -> [CSTI 1; SUB; SWAP; LT]
                         | op      -> failwith ("CE: the operator '" + op + "' is not supported")
-                CE vEnv fEnv e1 (CE vEnv fEnv e2 (ins @ k)) 
+                CE vEnv fEnv e1 (CE vEnv fEnv e2 (ins @ k))
             | Apply (f, es)     ->
                 let (label, _, _) = Map.find f (fst fEnv)
                 List.fold (fun k' e -> CE vEnv fEnv e k') (makeCall es.Length label k) (List.rev es)
@@ -128,8 +129,8 @@ module CodeGeneration =
 
 
 /// CA vEnv fEnv acc gives the code for an access acc on the basis of a variable and a function environment
-    and CA vEnv fEnv acc k = 
-        match acc with 
+    and CA vEnv fEnv acc k =
+        match acc with
             | AVar x         ->
                 match Map.find x (fst vEnv) with
                     | (GloVar addr,_) -> [CSTI addr] @ k
@@ -146,7 +147,7 @@ module CodeGeneration =
             | ATyp (_, Some n) ->
                 let varKind = kind (fdepth + n)
                 let env' = (Map.add x (varKind, typ) env, fdepth + n + 1)
-                match varKind with 
+                match varKind with
                     | LocVar _ -> (env', [INCSP n; GETBP; CSTI fdepth; ADD])
                     | GloVar _ -> (env', [INCSP n; CSTI fdepth])
             | _ ->
@@ -154,18 +155,18 @@ module CodeGeneration =
                 let code = [INCSP 1]
                 (env', code)
 
-    let decsLength = List.fold (+) 0 << List.map (function 
+    let decsLength = List.fold (+) 0 << List.map (function
         | VarDec (ATyp (_, Some n), _)  -> n + 1
         | _                             -> 1)
 /// CS vEnv fEnv s gives the code for a statement s on the basis of a variable and a function environment
-    let rec CS (vEnv : VarEnv) (fEnv : FunEnv) (stm : Stm) (k : instr list) = 
-        match stm with 
+    let rec CS (vEnv : VarEnv) (fEnv : FunEnv) (stm : Stm) (k : instr list) =
+        match stm with
             | PrintLn e         -> CE vEnv fEnv e ([PRINTI; INCSP -1] @ k)
             | Ass(acc,e)        -> CA vEnv fEnv acc (CE vEnv fEnv e ([STI; INCSP -1] @ k))
-            | Block(decs, stms)    -> 
-                let (vEnv', decsCode) = List.fold (fun (env, code) -> 
+            | Block(decs, stms)    ->
+                let (vEnv', decsCode) = List.fold (fun (env, code) ->
                     function
-                        | VarDec (t,n)  -> 
+                        | VarDec (t,n)  ->
                             let kind = if (snd fEnv).IsNone then GloVar else LocVar
                             let (env', code') = allocate kind (t, n) env
                             (env', code @ code')
@@ -176,13 +177,13 @@ module CodeGeneration =
                 guardStm labelEnd vEnv fEnv gc ([Label labelEnd] @ k)
             | Do (GC gc)        ->
                 let labelStart = newLabel ()
-                [Label labelStart] @ guardStm labelStart vEnv fEnv gc k 
+                [Label labelStart] @ guardStm labelStart vEnv fEnv gc k
             | Return e ->
                 let k' = [RET (snd vEnv)] @ k
                 match e with
                     | Some exp  -> CE vEnv fEnv exp k'
                     | None      -> k'
-            | Call (p, exprs)       -> 
+            | Call (p, exprs)       ->
                 let (label, _, _) = Map.find p (fst fEnv)
                 List.fold (fun k' e -> CE vEnv fEnv e k') ([CALL ((exprs.Length), label); INCSP -1] @ k) (List.rev exprs)
 
@@ -218,17 +219,173 @@ module CodeGeneration =
                             let funLabel = newLabel ()
                             let endFunc = newLabel ()
                             let fEnv1 = allocateFunction funLabel func fEnv
-                            let vEnvLocal = allocateDecs vEnv decs' 
+                            let vEnvLocal = allocateDecs vEnv decs'
                             let codeStm = CS vEnvLocal (fst fEnv1, Some f) body []
                             let (vEnv2, fEnv2, code2) = addv decr vEnv fEnv1
-                            let procedureEnd = 
-                                if tyOpt.IsNone 
+                            let procedureEnd =
+                                if tyOpt.IsNone
                                     then [RET (decs'.Length - 1)]
                                     else []
-                            (vEnv2, fEnv2, [GOTO endFunc] @ [Label funLabel] 
+                            (vEnv2, fEnv2, [GOTO endFunc] @ [Label funLabel]
                                 @ codeStm @ procedureEnd
                                 @ [Label endFunc] @ code2)
         addv decs (Map.empty, 0) (Map.empty, None)
+
+    let optimizeAST (P(decs, stms)) = P(decs, stms)
+
+    type ConstantValue = Num of int | Bool of bool
+    type VarState = UnAssigned | Mutable | Constant
+    type EnvIsConst = Map<string, VarState>
+    type Env = Map<string, ConstantValue>
+
+    let rec checkExp (env : EnvIsConst) expr : bool =
+        match expr with
+            | N _ | B _         -> true
+            | Access (AVar acc) ->
+                match Map.tryFind acc env with
+                    | None              -> true
+                    | Some Constant     -> true
+                    | _                 -> false
+            | Apply(f,[e]) when List.exists ((=)f) ["-"; "!"]
+                -> checkExp env e
+            | Apply(f,[e1;e2]) when List.exists ((=)f) ["+";"*";"=";"&&";"-";"<";">";"<=";">="]
+                -> checkExp env e1 && checkExp env e2
+            | _                 -> false
+    and checkForAddr env =
+        function
+            | Apply (_, es)     -> List.fold checkForAddr env es
+            | Addr (AVar acc)   -> Map.add acc Mutable env
+            | Addr acc          -> checkForAddrAcccess env acc
+            | Access acc        -> checkForAddrAcccess env acc
+            | _                 -> env
+    and checkForAddrAcccess env =
+        function
+            | AIndex (acc, e)       -> checkForAddr (checkForAddrAcccess env acc) e
+            | ADeref e              -> checkForAddr env e
+            | AVar _                -> env
+    and checkStm (env :EnvIsConst) (stm : Stm) : EnvIsConst =
+        match stm with
+            | PrintLn e                     -> checkForAddr env e
+            | Return (Some e)               -> checkForAddr env e
+            | Call (_, es)                  -> List.fold checkForAddr env es
+            | Do (GC gc)
+            | Alt (GC gc)                   ->
+                List.fold (fun env' (e, stms) -> checkStms (checkForAddr env' e) stms) env gc
+            | Ass (AVar acc, e)             ->
+                let env' = checkForAddr env e
+                match Map.tryFind acc env' with
+                    | None
+                    | Some Mutable      -> env'
+                    | Some Constant     -> Map.add acc Mutable env'
+                    | Some UnAssigned   ->
+                        if checkExp env' e
+                            then Map.add acc Constant env'
+                            else Map.add acc Mutable env'
+            | Ass (acc, e)                  -> checkForAddrAcccess (checkForAddr env e) acc
+            | Block (decs, stms)            ->
+                let localEnv = createBlockEnv decs
+                let globalEnv = Map.filter (fun k _ -> not <| Map.containsKey k localEnv) env
+                checkStms globalEnv stms
+            | Return None                   -> env
+
+    and checkStms = List.fold checkStm
+    and createBlockEnv = List.fold (fun env' ->
+            function
+                | VarDec (_, s) -> Map.add s UnAssigned env'
+                | _              -> env') Map.empty
+    and checkBlock decs stms =
+        let env : EnvIsConst = createBlockEnv decs
+        checkStms env stms
+
+    let rec optBlock decs stms =
+        let env = Map.filter (fun _ v -> v = Constant) (checkBlock decs stms)
+        let envValue = List.fold (fun envValue' dec ->
+            match dec with
+                | VarDec (ty, s) ->
+                    match Map.tryFind s env with
+                        | Some Constant ->
+                            match ty with
+                                | ITyp  -> Map.add s (Num 0) envValue'
+                                | BTyp  -> Map.add s (Bool false) envValue'
+                                | _     -> failwith "Should not be possible"
+                        | _             -> envValue'
+                | _             -> envValue') Map.empty decs
+        optStms envValue stms
+    and optStm env stm =
+        match stm with
+            | PrintLn e          -> (env, Some <| PrintLn (optExpr env e))
+            | Return (Some e)    -> (env, Some <| Return (Some (optExpr env e)))
+            | Return None        -> (env, Some <| Return None)
+            | Ass (AVar a, e)    -> let e' = optExpr env e
+                                    match Map.tryFind a env with
+                                        | Some _         ->
+                                            let env' =
+                                                match e' with
+                                                    | N n   -> Map.add a (Num n) env
+                                                    | B b   -> Map.add a (Bool b) env
+                                                    | x     -> failwith ("Impossible: Assumed checked environment. Expected constant, actual: " + string x)
+                                            (env', None)
+                                        | None           -> (env, Some <| Ass (AVar a, e'))
+            | Ass (acc, e)       -> (env, Some <| Ass (optAcc env acc, optExpr env e))
+            | Do (GC gc)
+            | Alt (GC gc)        -> let folder (env', gc') (e, stms) =
+                                        let (env'', stms') = optStms env' stms
+                                        let e'             = optExpr env'' e
+                                        (env'', (e', stms') :: gc')
+                                     in let (newEnv, newGc) = List.fold folder (env, []) gc
+                                        (newEnv, Some <| Alt (GC newGc))
+            | Block (decs, stms) -> let (env', stms') = optStms env stms
+                                    (env', Some <| Block (decs, stms'))
+            | Call (f, es)       -> let es' = List.map (optExpr env) es
+                                    (env, Some <| Call (f, es'))
+    and optAcc env acc =
+        match acc with
+            | AVar s            -> AVar s
+            | AIndex (acc, e)   -> AIndex (optAcc env acc, optExpr env e)
+            | ADeref e          -> ADeref (optExpr env e)
+
+
+    // let mapOperator (operator : string) : 'a -> 'a -> 'a =
+    //     match operator with
+    //         | "+"   -> (+)
+    //         | "*"   -> (*)
+    //         | "-"   -> (-)
+    //         // | "&&"  -> (&&)
+    //         | _     -> failwith "Operator not supported"
+
+    and optExpr env (expr : Exp) =
+        match expr with
+            | N n                -> N n
+            | B b                -> B b
+            | Access (AVar acc)  -> match Map.tryFind acc env with
+                                        | Some (Bool b)     -> B b
+                                        | Some (Num n)      -> N n
+                                        | _                 -> Access (AVar acc)
+            | Addr acc          -> Addr (optAcc env acc)
+            | Apply (s, es)     -> Apply (s, List.map (optExpr env) es)
+            // | Apply(f,[e]) when List.exists ((=)f) ["-"; "!"]
+            //            -> tcMonadic gtenv ltenv f e
+            // | Apply(f,[e1;e2]) when List.exists ((=)f) ["+";"*"; "="; "&&";"-";"<";">";"<=";">="]
+            //            ->
+            //            let e1' = optExpr env e1
+            //            let e2' = optExpr env e2
+            //            match (e1', e2') with
+            //                 | (N n1, N n2)  -> N ((mapOperator f) n1 n2)
+            //                 | _             -> Apply(f, [e1'; e2'])
+            // | Apply (f, args)  ->
+            | _                  -> expr
+    and optStms oldEnv stms =
+        let folder (env, oldStms) nextStm =
+            let (env', stm') = optStm env nextStm
+            (env', stm' :: oldStms)
+        in let (env', stms') = List.fold folder (oldEnv, []) stms
+           (env', List.choose id stms')
+
+
+    let rec optimize decs stms =
+        match stms with
+            | Block (ds, ss) :: stms'    -> let (_, ss') = optBlock ds ss
+                                            optimize decs stms'
 
 /// CP prog gives the code for a program prog
     let CP (P(decs,stms)) =
