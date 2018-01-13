@@ -310,7 +310,7 @@ module CodeGeneration =
                                 | _     -> failwith "Should not be possible"
                         | _             -> envValue'
                 | _             -> envValue') Map.empty decs
-        optStms envValue stms
+        snd <| optStms envValue stms
     and optStm env stm =
         match stm with
             | PrintLn e          -> (env, Some <| PrintLn (optExpr env e))
@@ -381,11 +381,19 @@ module CodeGeneration =
         in let (env', stms') = List.fold folder (oldEnv, []) stms
            (env', List.choose id stms')
 
+    let optionToList = function
+        | Some a -> [a]
+        | None   -> []
 
-    let rec optimize decs stms =
-        match stms with
-            | Block (ds, ss) :: stms'    -> let (_, ss') = optBlock ds ss
-                                            optimize decs stms'
+    let rec optimize env = function
+            | Block (ds, ss) :: tailStms -> let (env', ss') = optimize env ss
+                                            let ss'' = optBlock ds ss'
+                                            let (env'', tailStms') = optimize env' tailStms
+                                            (env'', Block (ds, ss'') :: tailStms')
+            | a              :: tailStms -> let (env', s) = optStm env a
+                                            let (env'', tailStms') = optimize env' tailStms
+                                            (env'', optionToList s @ tailStms')
+            | []                         -> (env, [])
 
 /// CP prog gives the code for a program prog
     let CP (P(decs,stms)) =
