@@ -72,7 +72,10 @@ let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
 // System.Console.WriteLine (string tokens)
 // printTokens (getBuffer "function f(x: int): int = { print x; return x+1 };")
 
-let filename = "tests/unassigned.gc";;
+let filename = "tests/Ex4.gc";;
+
+System.Console.WriteLine ("Starting on " + filename)
+System.Console.WriteLine ("\nParsing...\n")
 let str = File.ReadAllText(filename);;
 // printTokens (getBuffer str)
 let tree = parseFromFile filename;;
@@ -83,10 +86,9 @@ printfn "Type checking passed"
 printfn ""
 
 printfn "Code generation starting..."
-let code = CP tree;;
+// let code = CP tree;;
 
-// // let _ = go tree;;
-let _ = goTrace tree;;
+// let _ = goTrace tree;;
 // List.map (fun x -> System.Console.WriteLine (string x)) code
 
 // let _ = execTrace "Ex7.gc"

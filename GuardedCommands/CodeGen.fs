@@ -132,9 +132,10 @@ module CodeGeneration =
     and CA vEnv fEnv acc k =
         match acc with
             | AVar x         ->
-                match Map.find x (fst vEnv) with
-                    | (GloVar addr,_) -> [CSTI addr] @ k
-                    | (LocVar addr,_) -> [GETBP; CSTI addr; ADD] @ k
+                match Map.tryFind x (fst vEnv) with
+                    | Some (GloVar addr,_)  -> [CSTI addr] @ k
+                    | Some (LocVar addr,_)  -> [GETBP; CSTI addr; ADD] @ k
+                    | None                  -> failwith ("Unable to find " + x)
             | AIndex(acc, e) -> CA vEnv fEnv acc ([LDI] @ CE vEnv fEnv e ([ADD] @ k))
             | ADeref e       -> CE vEnv fEnv e k
 
@@ -231,7 +232,9 @@ module CodeGeneration =
                                 @ [Label endFunc] @ code2)
         addv decs (Map.empty, 0) (Map.empty, None)
 
-    let optimizeAST (P(decs, stms)) = P(decs, stms)
+    let optionToList = function
+        | Some a -> [a]
+        | None   -> []
 
     type ConstantValue = Num of int | Bool of bool
     type VarState = UnAssigned | Mutable | Constant
@@ -289,10 +292,13 @@ module CodeGeneration =
             | Return None                   -> env
 
     and checkStms = List.fold checkStm
-    and createBlockEnv = List.fold (fun env' ->
+    and createBlockEnv =
+        let folder env =
             function
-                | VarDec (_, s) -> Map.add s UnAssigned env'
-                | _              -> env') Map.empty
+                | VarDec (_, s)             -> Map.add s UnAssigned env
+                | FunDec (_, _, ds, stm)    -> let env' = checkBlock ds [stm]
+                                               Map.map (fun _ _ -> Mutable) env'
+         in List.fold folder Map.empty
     and checkBlock decs stms =
         let env : EnvIsConst = createBlockEnv decs
         checkStms env stms
@@ -310,7 +316,12 @@ module CodeGeneration =
                                 | _     -> failwith "Should not be possible"
                         | _             -> envValue'
                 | _             -> envValue') Map.empty decs
-        snd <| optStms envValue stms
+        let (_, stms') = optimize envValue stms
+        let predicate x = match x with
+                            | VarDec (_, s)     -> not <| Map.containsKey s env
+                            | _                 -> true
+         in let decs' = List.filter predicate decs
+            (decs', stms')
     and optStm env stm =
         match stm with
             | PrintLn e          -> (env, Some <| PrintLn (optExpr env e))
@@ -327,17 +338,21 @@ module CodeGeneration =
                                             (env', None)
                                         | None           -> (env, Some <| Ass (AVar a, e'))
             | Ass (acc, e)       -> (env, Some <| Ass (optAcc env acc, optExpr env e))
-            | Do (GC gc)
-            | Alt (GC gc)        -> let folder (env', gc') (e, stms) =
-                                        let (env'', stms') = optStms env' stms
-                                        let e'             = optExpr env'' e
-                                        (env'', (e', stms') :: gc')
-                                     in let (newEnv, newGc) = List.fold folder (env, []) gc
-                                        (newEnv, Some <| Alt (GC newGc))
-            | Block (decs, stms) -> let (env', stms') = optStms env stms
+            | Do (GC gc)         -> let (env', gc') = optGuard env gc
+                                    (env', Some <| Do (GC gc')) 
+            | Alt (GC gc)        -> let (env', gc') = optGuard env gc
+                                    (env', Some <| Alt (GC gc'))
+            | Block (decs, stms) -> let (env', stms') = optimize env stms
                                     (env', Some <| Block (decs, stms'))
             | Call (f, es)       -> let es' = List.map (optExpr env) es
                                     (env, Some <| Call (f, es'))
+    and optGuard env gc = 
+        let folder (env', gc') (e, stms) =
+            let (env'', stms') = optimize env' stms
+            let e'             = optExpr env'' e
+            (env'', (e', stms') :: gc')
+         in let (newEnv, newGc) = List.fold folder (env, []) (List.rev gc)
+            (newEnv, newGc)
     and optAcc env acc =
         match acc with
             | AVar s            -> AVar s
@@ -345,13 +360,24 @@ module CodeGeneration =
             | ADeref e          -> ADeref (optExpr env e)
 
 
-    // let mapOperator (operator : string) : 'a -> 'a -> 'a =
-    //     match operator with
-    //         | "+"   -> (+)
-    //         | "*"   -> (*)
-    //         | "-"   -> (-)
-    //         // | "&&"  -> (&&)
-    //         | _     -> failwith "Operator not supported"
+    and mapBinaryIntOp (operator : string) : int -> int -> int =
+        match operator with
+            | "+"   -> (+)
+            | "*"   -> (*)
+            | "-"   -> (-)
+            | _     -> failwith "Impossible: Operator not supported"
+    and mapBinaryIntToBoolOp =
+        function
+            | ">"   -> (>)
+            | "<"   -> (<)
+            | ">="  -> (>=)
+            | "<="  -> (<=)
+            | _     -> failwith ("Impossible: Operator not supported")
+    and mapBinaryBoolOp (operator : string) =
+        match operator with
+            | "&&"  -> (&&)
+            | "="   -> (=)
+            | _     -> failwith ("Impossible: Operator " + operator + " is not supported on booleans")
 
     and optExpr env (expr : Exp) =
         match expr with
@@ -362,34 +388,40 @@ module CodeGeneration =
                                         | Some (Num n)      -> N n
                                         | _                 -> Access (AVar acc)
             | Addr acc          -> Addr (optAcc env acc)
+            | Apply(f,[e]) when List.exists ((=)f) ["-"; "!"] ->
+                let e' = optExpr env e
+                match e' with
+                    | N n   -> N (-n)
+                    | B b   -> B (not b)
+                    | _     -> Apply(f, [e'])
+            | Apply(f,[e1;e2]) when List.exists ((=)f) ["+";"*";"-";"=";"&&";"<";">";"<=";">="] ->
+                let e1' = optExpr env e1
+                let e2' = optExpr env e2
+                match f with
+                    | "+" | "*" | "-"            -> match (e1', e2') with
+                                                        | (N n1, N n2)  -> N ((mapBinaryIntOp f) n1 n2)
+                                                        | _             -> Apply(f, [e1';e2'])
+                    | "<" | ">" | "<=" | ">="    -> match (e1', e2') with
+                                                        | (N n1, N n2)  -> B ((mapBinaryIntToBoolOp f) n1 n2)
+                                                        | _             -> Apply(f, [e1';e2'])
+                    | "=" | "&&"                 -> match (e1', e2') with
+                                                        | (B b1, B b2)  -> B ((mapBinaryBoolOp f) b1 b2)
+                                                        | _             -> Apply(f, [e1';e2'])
+                    | _                          -> failwith ("Impossible")
             | Apply (s, es)     -> Apply (s, List.map (optExpr env) es)
-            // | Apply(f,[e]) when List.exists ((=)f) ["-"; "!"]
-            //            -> tcMonadic gtenv ltenv f e
-            // | Apply(f,[e1;e2]) when List.exists ((=)f) ["+";"*"; "="; "&&";"-";"<";">";"<=";">="]
-            //            ->
-            //            let e1' = optExpr env e1
-            //            let e2' = optExpr env e2
-            //            match (e1', e2') with
-            //                 | (N n1, N n2)  -> N ((mapOperator f) n1 n2)
-            //                 | _             -> Apply(f, [e1'; e2'])
-            // | Apply (f, args)  ->
             | _                  -> expr
-    and optStms oldEnv stms =
-        let folder (env, oldStms) nextStm =
-            let (env', stm') = optStm env nextStm
-            (env', stm' :: oldStms)
-        in let (env', stms') = List.fold folder (oldEnv, []) stms
-           (env', List.choose id stms')
+    // and optStms oldEnv stms =
+    //     let folder (env, oldStms) nextStm =
+    //         let (env', stm') = optStm env nextStm
+    //         (env', stm' :: oldStms)
+    //     in let (env', stms') = List.fold folder (oldEnv, []) stms
+    //        (env', List.choose id stms')
 
-    let optionToList = function
-        | Some a -> [a]
-        | None   -> []
-
-    let rec optimize env = function
+    and optimize env = function
             | Block (ds, ss) :: tailStms -> let (env', ss') = optimize env ss
-                                            let ss'' = optBlock ds ss'
+                                            let (ds'', ss'') = optBlock ds ss'
                                             let (env'', tailStms') = optimize env' tailStms
-                                            (env'', Block (ds, ss'') :: tailStms')
+                                            (env'', Block (ds'', ss'') :: tailStms')
             | a              :: tailStms -> let (env', s) = optStm env a
                                             let (env'', tailStms') = optimize env' tailStms
                                             (env'', optionToList s @ tailStms')
@@ -398,5 +430,7 @@ module CodeGeneration =
 /// CP prog gives the code for a program prog
     let CP (P(decs,stms)) =
         let _ = resetLabels ()
-        let ((gvM,_) as gvEnv, fEnv, initCode) = makeGlobalEnvs decs
-        initCode @ CSs gvEnv fEnv stms [STOP]
+        let (decs', stms') = optBlock decs stms
+        System.Console.WriteLine "Optimization done."
+        let ((gvM,_) as gvEnv, fEnv, initCode) = makeGlobalEnvs decs'
+        initCode @ CSs gvEnv fEnv stms' [STOP]
