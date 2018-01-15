@@ -13,122 +13,114 @@ module TypeCheck =
       | (a, b) when a = b                             -> true
       | _                                             -> false
 
-/// tcE gtenv ltenv e gives the type for expression e on the basis of type environments gtenv and ltenv
+/// tcE env e gives the type for expression e on the basis of type environments gtenv and ltenv
 /// for global and local variables
-  let rec tcE gtenv ltenv = function
+  let rec tcE env = function
     | N _              -> ITyp
     | B _              -> BTyp
-    | Access acc       -> tcA gtenv ltenv acc
+    | Access acc       -> tcA env acc
     | Apply(f,[e]) when List.exists (fun x ->  x=f) ["-"; "!"]
-                       -> tcMonadic gtenv ltenv f e
+                       -> tcMonadic env f e
     | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&";"-";"<";">";"<=";">="]
-                       -> tcDyadic gtenv ltenv f e1 e2
+                       -> tcDyadic env f e1 e2
     | Apply (f, args)  ->
-      let ts = List.map (tcE gtenv ltenv) args
-      match Map.tryFind f gtenv with
+      let ts = List.map (tcE env) args
+      match Map.tryFind f env with
         | Some (FTyp (decTs, Some funTy)) ->
           if List.forall matchTypesFunction (List.zip ts decTs)
             then funTy
-              else failwith ("Argument types for the function "
-                + string f + " does not match the function declaration\n"
-                + "Expected " + string decTs + " Actual: " + string ts)
+            else failwith ("Argument types for the function '"
+              + string f + "' does not match the function declaration. "
+              + "Expected " + string decTs + " Actual: " + string ts)
         | _                           -> failwith ("Function " + string f + " is undefined")
-    | Addr x           -> PTyp (tcA gtenv ltenv x)
-    | Access acc       -> tcA gtenv ltenv acc
+    | Addr x           -> PTyp (tcA env x)
+    | Access acc       -> tcA env acc
     | x                -> failwith ("tcE: not supported yet" + string x)
 
-  and tcMonadic gtenv ltenv f e =
-    match (f, tcE gtenv ltenv e) with
+  and tcMonadic env f e =
+    match (f, tcE env e) with
       | ("-", ITyp) -> ITyp
       | ("!", BTyp) -> BTyp
       | _           -> failwith "illegal/illtyped monadic expression"
 
-  and tcDyadic gtenv ltenv f e1 e2 =
-    match (f, tcE gtenv ltenv e1, tcE gtenv ltenv e2) with
+  and tcDyadic env f e1 e2 =
+    match (f, tcE env e1, tcE env e2) with
       | (o, ITyp, ITyp) when List.exists ((=)o) ["+";"*";"-"]            -> ITyp
       | (o, ITyp, ITyp) when List.exists ((=)o) ["=";">";"<";">=";"<="]  -> BTyp
       | (o, BTyp, BTyp) when List.exists ((=)o) ["&&";"="]               -> BTyp
       | _                      -> failwith("illegal/illtyped dyadic expression: " + f)
 
-  and tcNaryFunction gtenv ltenv f es = failwith "type check: functions not supported yet"
-
-  and tcNaryProcedure gtenv ltenv f es = failwith "type check: procedures not supported yet"
-
-
-/// tcA gtenv ltenv e gives the type for access acc on the basis of type environments gtenv and ltenv
+/// tcA env e gives the type for access acc on the basis of type environments gtenv and ltenv
 /// for global and local variables
-  and tcA gtenv ltenv =
+  and tcA env =
     function
       | AVar x         ->
-        match Map.tryFind x ltenv with
-          | None   ->
-            match Map.tryFind x gtenv with
-              | None   -> failwith ("no declaration for : " + x)
-              | Some t -> t
+        match Map.tryFind x env with
+          | None   -> failwith ("no declaration for : " + x)
           | Some t -> t
       | AIndex(acc, e) ->
-        match tcE gtenv ltenv e with
+        match tcE env e with
           | ITyp      -> ()
           | ty        -> failwith ("Expression on array " + string acc + " is not the expected type int. Actual type: " + string ty)
-        match tcA gtenv ltenv acc with
+        match tcA env acc with
           | ATyp (ty, _)    -> ty
           | _               -> failwith ("Not an array")
       | ADeref e       ->
-        match tcE gtenv ltenv e with
+        match tcE env e with
           | PTyp t    -> t
           | _         -> failwith (string e + " is not a pointer")
 
 
-/// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
+/// tcS env retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
 /// for global and local variables and the possible type of return expressions
-  and tcS gtenv ltenv ftyp = function
-      | PrintLn e       -> ignore(tcE gtenv ltenv e)
+  and tcS env ftyp = function
+      | PrintLn e       -> ignore(tcE env e)
       | Ass(acc,e)      ->
-        if tcA gtenv ltenv acc = tcE gtenv ltenv e
+        if tcA env acc = tcE env e
           then ()
           else failwith "illtyped assignment"
 
       | Block(decs, stms)           ->
-        let ltenv' = List.fold (fun env ->
+        let env' = List.fold (fun e ->
           function
-            | VarDec (t, n) -> Map.add n t env
-            | _             -> failwith "tcS Block: Not supported") ltenv decs
-        List.iter (tcS gtenv ltenv' ftyp) stms
+            | VarDec (t, n) -> Map.add n t e
+            | _             -> failwith "tcS Block: Not supported") env decs
+        List.iter (tcS env' ftyp) stms
       | Alt (GC gc) | Do (GC gc)    ->
-        if List.forall (fst >> tcE gtenv ltenv >> (=)BTyp) gc
-          then List.iter (snd >> List.iter (tcS gtenv ltenv ftyp)) gc
+        if List.forall (fst >> tcE env >> (=)BTyp) gc
+          then List.iter (snd >> List.iter (tcS env ftyp)) gc
           else failwith "tcS: If is expression, expected boolean"
       | Return e        ->
-        if Option.map (tcE gtenv ltenv) e = ftyp
+        if Option.map (tcE env) e = ftyp
           then ()
           else failwith "Return type is different from function type"
       | Call (p, args)  ->
-        let ts = List.map (tcE gtenv ltenv) args
-        match Map.tryFind p gtenv with
+        let ts = List.map (tcE env) args
+        match Map.tryFind p env with
           | Some (FTyp (decTs, None)) ->
             if List.forall matchTypesFunction (List.zip ts decTs)
               then ()
               else failwith ("Argument types for the procedure "
                         + string p + " does not match the procedure declaration" +
-                        "Expeced: " + string decTs + ", Actual: " + string ts)
+                        "Expeced: " + string decTs + ", Actual: " + string ts + " Args: " + string args)
           | _                     -> failwith ("Procedure " + string p + " is undefined")
       // | _               -> failwith "tcS: this statement is not supported yet"
 
-  and tcGDec gtenv = function
-      | VarDec(t,s)                 -> Map.add s t gtenv
+  and tcGDec env = function
+      | VarDec(t,s)                 -> Map.add s t env
       | FunDec(topt, f, decs, stm)  ->
         if allUnique (List.map (function
                                 | VarDec (_, n)   -> n
                                 | _               -> failwith "You are not allowed to define a function here") decs)
           then ()
           else failwith ("Function " + string f + " have duplicate arguments")
-        let ltenv = List.fold (fun ev x ->
+        let env' = addFuncToEnv f topt decs env
+        let localEnv = List.fold (fun ev x ->
           match x with
           | VarDec (t, n) -> Map.add n t ev
-          | _             -> failwith "You cannot define nested function" ) Map.empty decs
-        let gtenv' = addFuncToEnv f topt decs gtenv
-        tcS gtenv' ltenv topt stm |> ignore
-        gtenv'
+          | _             -> failwith "You cannot define nested function" ) env' decs
+        tcS localEnv topt stm |> ignore
+        env'
 
   and allUnique ls : bool = Seq.length (Seq.distinct ls) = List.length ls
   and addFuncToEnv f topt decs = Map.add f (FTyp (List.map decsToTyps decs, topt))
@@ -140,12 +132,12 @@ module TypeCheck =
     match stmt with
       | Block (_, stmts)      -> List.collect allStatments stmts
       | x                     -> [x]
-  and tcGDecs gtenv =
+  and tcGDecs env =
     function
-      | dec::decs -> tcGDecs (tcGDec gtenv dec) decs
-      | _         -> gtenv
+      | dec::decs -> tcGDecs (tcGDec env dec) decs
+      | _         -> env
 
 /// tcP prog checks the well-typeness of a program prog
   and tcP(P(decs, stms)) =
-    let gtenv = tcGDecs Map.empty decs
-    List.iter (tcS gtenv Map.empty None) stms
+    let env = tcGDecs Map.empty decs
+    List.iter (tcS env None) stms
