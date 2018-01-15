@@ -24,7 +24,7 @@ module CodeGeneration =
     let makeJump C : instr * instr list =          (* Unconditional jump to C *)
         match C with
             | RET m              :: _ -> (RET m, C)
-            | Label lab :: RET m :: _ -> (RET m, C)
+            | Label _ :: RET m   :: _ -> (RET m, C)
             | Label lab          :: _ -> (GOTO lab, C)
             | GOTO lab           :: _ -> (GOTO lab, C)
             | _                       -> let lab = newLabel()
@@ -52,7 +52,7 @@ module CodeGeneration =
     let addJump jump C =                    (* jump is GOTO or RET *)
         let C1 = deadcode C
         match (jump, C1) with
-        | (GOTO lab1, Label lab2 :: _) when lab1=lab2   ->         C1
+        | (GOTO lab1, Label lab2 :: _) when lab1 = lab2 ->         C1
         | _                                             -> jump :: C1
 
     let addGOTO lab C = addJump (GOTO lab) C
@@ -415,12 +415,6 @@ module CodeGeneration =
                     | _                           -> failwith ("Impossible")
             | Apply (s, es)     -> Apply (s, List.map (optExpr env) es)
             | _                  -> expr
-    // and optStms oldEnv stms =
-    //     let folder (env, oldStms) nextStm =
-    //         let (env', stm') = optStm env nextStm
-    //         (env', stm' :: oldStms)
-    //     in let (env', stms') = List.fold folder (oldEnv, []) stms
-    //        (env', List.choose id stms')
 
     and optimize env = function
             | Block (ds, ss) :: tailStms -> let (env', ss') = optimize env ss

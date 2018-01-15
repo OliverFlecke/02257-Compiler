@@ -26,53 +26,13 @@ open Lexer
 
 System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 
-// The Ex0.gc example:
-// let ex0Tree = parseFromFile "Ex0.gc";;
-// let _ = tcP ex0Tree;;
-// let ex0Code = CP ex0Tree;;
-// let _ = go ex0Tree;;
-// let _ = goTrace ex0Tree;;
-
-
-// // Parsing of Ex1.gc
-// let ex1Tree = parseFromFile "Ex1.gc";;
-
-// // -- is typechecked as follows:
-// let _ = tcP ex1Tree;;
-
-// // obtain symbolic code:
-// let ex1Code = CP ex1Tree;;
-
-// // -- is executed with trace as follows:
-// let stack = goTrace ex1Tree;;
-
-// // -- is executed as follows (no trace):
-// let sameStack = go ex1Tree;;
-
-// // "All in one" parse from file, type check, compile and run
-// let _ = exec "Ex1.gc";;
-// let _ = exec "Ex2.gc";;
-
-// // Test of programs covered by the fifth task using optimized compilation (Section 8.2):
-// List.iter execOpt ["Ex1.gc"; "Ex2.gc"];;
-
-// // All programs relating to the basic version can be parsed:
-// let pts = List.map parseFromFile ["Ex1.gc"; "Ex2.gc";"Ex3.gc"; "Ex4.gc"; "Ex5.gc"; "Ex6.gc"; "Skip.gc"];;
-
-// // The parse tree for Ex3.gc
-// List.item 2 pts ;;
-// exec "Ex2.gc"
-
 let printTokens (lexbuf : LexBuffer<_>) =
   while not lexbuf.IsPastEndOfStream do
     printfn "%A" (Lexer.tokenize lexbuf)
 
 let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
-// let tokens = tokenize lexbuf
-// System.Console.WriteLine (string tokens)
-// printTokens (getBuffer "function f(x: int): int = { print x; return x+1 };")
 
-let filename = "tests/div.gc";;
+let filename = "tests/" + "QuickSortV1.gc";;
 
 System.Console.WriteLine ("Starting on " + filename)
 System.Console.WriteLine ("\nParsing...\n")
@@ -86,12 +46,7 @@ printfn "Type checking passed"
 printfn ""
 
 printfn "Code generation starting..."
-// let code = CP tree;;
-
-let _ = goTrace tree;;
-// List.map (fun x -> System.Console.WriteLine (string x)) code
-
-// let _ = execTrace "Ex7.gc"
+go tree;;
 
 let mapToTestFolder = List.map (fun x -> "tests/" + x)
 // Test of programs covered by the first task (Section 3.7):

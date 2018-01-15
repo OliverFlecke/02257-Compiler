@@ -1,0 +1,6 @@
+begin
+    x : ^int,
+    y : ^bool;
+    x^ := 5;
+    y^ := 4
+end

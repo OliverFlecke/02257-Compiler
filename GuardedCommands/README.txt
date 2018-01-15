@@ -1,6 +1,6 @@
-﻿If you need to update lexer/parser, use the following commands in Project "Properties" -> "Build Events" -> "Prebuild event command line":
+﻿# Compiler
 
-fslex "$(ProjectDir)Lexer.fsl"
-fsyacc --module Parser "$(ProjectDir)Parser.fsy"
+To compile and execute a program, the 'filename' in 'Script.fsx' can be changed to the source file. 
+Then run 'Script.fsx'.
 
-Note: You must revise 3 pathes occurring in Script.fsx
+All supplied source files can be executed by uncommenting the lines at the end of the 'Script.fsx'. 

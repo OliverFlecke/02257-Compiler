@@ -1,0 +1,4 @@
+begin 
+    x : int[3];
+    x := true
+end
