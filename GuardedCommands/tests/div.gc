@@ -1,3 +1,6 @@
 begin 
-    print 4 / 2
+    x : int;
+    x := 4;
+    x := 4;
+    print x / 2
 end

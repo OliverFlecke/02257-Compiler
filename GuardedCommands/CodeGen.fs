@@ -96,6 +96,7 @@ module CodeGeneration =
             | (VarDec (t, n))   -> (Map.add n (LocVar (snd env), t) <| fst env, snd env + 1)
             | _                 -> failwith "Not supported") (fst vEnv, 0) decs
 
+    let binaryOperators = ["+";"*";"/";"%";"=";"-";">";"<";">=";"<="]
 /// CE vEnv fEnv e gives the code for an expression e on the basis of a variable and a function environment
     let rec CE vEnv fEnv expr k =
         match expr with
@@ -108,11 +109,13 @@ module CodeGeneration =
                                        let labfalse = newLabel()
                                        CE vEnv fEnv b1 ([IFZERO labfalse]
                                        @ CE vEnv fEnv b2 ([GOTO labend; Label labfalse; CSTI 0; Label labend] @ k))
-            | Apply(o,[e1;e2]) when List.exists ((=)o) ["+";"*";"=";"-";">";"<";">=";"<="] ->
+            | Apply(o,[e1;e2]) when List.exists ((=)o) binaryOperators ->
                 let ins =
                     match o with
                         | "+"     -> [ADD]
                         | "*"     -> [MUL]
+                        | "/"     -> [DIV]
+                        | "%"     -> [MOD]
                         | "="     -> [EQ]
                         | "-"     -> [SUB]
                         | "<"     -> [LT]
@@ -251,7 +254,7 @@ module CodeGeneration =
                     | _                 -> false
             | Apply(f,[e]) when List.exists ((=)f) ["-"; "!"]
                 -> checkExp env e
-            | Apply(f,[e1;e2]) when List.exists ((=)f) ["+";"*";"=";"&&";"-";"<";">";"<=";">="]
+            | Apply(f,[e1;e2]) when List.exists ((=)f) binaryOperators
                 -> checkExp env e1 && checkExp env e2
             | _                 -> false
     and checkForAddr env =
@@ -364,6 +367,8 @@ module CodeGeneration =
         match operator with
             | "+"   -> (+)
             | "*"   -> (*)
+            | "/"   -> (/)
+            | "%"   -> (%)
             | "-"   -> (-)
             | _     -> failwith "Impossible: Operator not supported"
     and mapBinaryIntToBoolOp =
@@ -394,20 +399,20 @@ module CodeGeneration =
                     | N n   -> N (-n)
                     | B b   -> B (not b)
                     | _     -> Apply(f, [e'])
-            | Apply(f,[e1;e2]) when List.exists ((=)f) ["+";"*";"-";"=";"&&";"<";">";"<=";">="] ->
+            | Apply(f,[e1;e2]) when List.exists ((=)f) binaryOperators ->
                 let e1' = optExpr env e1
                 let e2' = optExpr env e2
                 match f with
-                    | "+" | "*" | "-"            -> match (e1', e2') with
+                    | "+" | "*" | "-" | "/" | "%" -> match (e1', e2') with
                                                         | (N n1, N n2)  -> N ((mapBinaryIntOp f) n1 n2)
                                                         | _             -> Apply(f, [e1';e2'])
-                    | "<" | ">" | "<=" | ">="    -> match (e1', e2') with
+                    | "<" | ">" | "<=" | ">="     -> match (e1', e2') with
                                                         | (N n1, N n2)  -> B ((mapBinaryIntToBoolOp f) n1 n2)
                                                         | _             -> Apply(f, [e1';e2'])
-                    | "=" | "&&"                 -> match (e1', e2') with
+                    | "=" | "&&"                  -> match (e1', e2') with
                                                         | (B b1, B b2)  -> B ((mapBinaryBoolOp f) b1 b2)
                                                         | _             -> Apply(f, [e1';e2'])
-                    | _                          -> failwith ("Impossible")
+                    | _                           -> failwith ("Impossible")
             | Apply (s, es)     -> Apply (s, List.map (optExpr env) es)
             | _                  -> expr
     // and optStms oldEnv stms =

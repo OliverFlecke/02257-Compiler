@@ -12,21 +12,21 @@
  tcP prog checks the well-typeness of a program prog
 </summary>
 </member>
-<member name="M:GuardedCommands.Frontend.TypeCheck.tcS(Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},Microsoft.FSharp.Core.FSharpOption{GuardedCommands.Frontend.AST.Typ},GuardedCommands.Frontend.AST.Stm)">
+<member name="M:GuardedCommands.Frontend.TypeCheck.tcS(Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},Microsoft.FSharp.Core.FSharpOption{GuardedCommands.Frontend.AST.Typ},GuardedCommands.Frontend.AST.Stm)">
 <summary>
- tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
+ tcS env retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
  for global and local variables and the possible type of return expressions
 </summary>
 </member>
-<member name="M:GuardedCommands.Frontend.TypeCheck.tcA(Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},GuardedCommands.Frontend.AST.Access)">
+<member name="M:GuardedCommands.Frontend.TypeCheck.tcA(Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},GuardedCommands.Frontend.AST.Access)">
 <summary>
- tcA gtenv ltenv e gives the type for access acc on the basis of type environments gtenv and ltenv
+ tcA env e gives the type for access acc on the basis of type environments gtenv and ltenv
  for global and local variables
 </summary>
 </member>
-<member name="M:GuardedCommands.Frontend.TypeCheck.tcE(Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},GuardedCommands.Frontend.AST.Exp)">
+<member name="M:GuardedCommands.Frontend.TypeCheck.tcE(Microsoft.FSharp.Collections.FSharpMap{System.String,GuardedCommands.Frontend.AST.Typ},GuardedCommands.Frontend.AST.Exp)">
 <summary>
- tcE gtenv ltenv e gives the type for expression e on the basis of type environments gtenv and ltenv
+ tcE env e gives the type for expression e on the basis of type environments gtenv and ltenv
  for global and local variables
 </summary>
 </member>

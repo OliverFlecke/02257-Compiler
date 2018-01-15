@@ -21,7 +21,7 @@ module TypeCheck =
     | Access acc       -> tcA env acc
     | Apply(f,[e]) when List.exists (fun x ->  x=f) ["-"; "!"]
                        -> tcMonadic env f e
-    | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&";"-";"<";">";"<=";">="]
+    | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*";"/";"%";"=";"&&";"-";"<";">";"<=";">="]
                        -> tcDyadic env f e1 e2
     | Apply (f, args)  ->
       let ts = List.map (tcE env) args
@@ -45,7 +45,7 @@ module TypeCheck =
 
   and tcDyadic env f e1 e2 =
     match (f, tcE env e1, tcE env e2) with
-      | (o, ITyp, ITyp) when List.exists ((=)o) ["+";"*";"-"]            -> ITyp
+      | (o, ITyp, ITyp) when List.exists ((=)o) ["+";"*";"-";"/";"%"]    -> ITyp
       | (o, ITyp, ITyp) when List.exists ((=)o) ["=";">";"<";">=";"<="]  -> BTyp
       | (o, BTyp, BTyp) when List.exists ((=)o) ["&&";"="]               -> BTyp
       | _                      -> failwith("illegal/illtyped dyadic expression: " + f)

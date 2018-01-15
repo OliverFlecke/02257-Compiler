@@ -61,6 +61,8 @@ rule tokenize =
   | ">"         { GT }
   | "<="        { LE } 
   | "*"         { TIMES }
+  | "/"         { DIV }
+  | "%"         { MOD }
   | "-"         { MINUS }
   | "="         { EQ }
   | "+"         { PLUS }

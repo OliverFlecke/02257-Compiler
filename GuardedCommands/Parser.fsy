@@ -10,7 +10,7 @@ open GuardedCommands.Frontend.AST
 %token LP LCP LSP RP RCP RSP
 %token IF FI DO OD BEGIN END
 %token COMMA COLON SEMI BAR TO
-%token NEG PLUS MINUS TIMES AND EQ LE LT GT NEQ
+%token NEG PLUS MINUS TIMES AND EQ LE LT GT NEQ DIV MOD
 %token PRINT ASG SKIP ABORT
 %token EOF
 %token HIGH
@@ -22,7 +22,7 @@ open GuardedCommands.Frontend.AST
 %nonassoc NEG
 %left EQ LE LT GT NEQ
 %left PLUS MINUS
-%left TIMES
+%left TIMES DIV MOD
 
 %start Main Prog
 %type <Exp> Exp
@@ -122,6 +122,8 @@ Exp:
   | Exp GT Exp                        { Apply(">", [$1; $3])}
   | Exp LT Exp                        { Apply("<", [$1; $3])}
   | Exp NEQ Exp                       { Apply("<>", [$1; $3])}
+  | Exp DIV Exp                       { Apply("/", [$1; $3])}
+  | Exp MOD Exp                       { Apply("%", [$1; $3])}
   | NAME LP ExpL RP                   { Apply ($1, $3) }
   | ADDR Access                       { Addr $2 }
   | DEREF Access                      { Access $2 }
