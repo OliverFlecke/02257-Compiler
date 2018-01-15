@@ -1,0 +1,7 @@
+begin 
+    function f(x) = 
+        if 
+            x = 0 -> print x; x := x + 1;
+        fi;
+    f(0);
+end
