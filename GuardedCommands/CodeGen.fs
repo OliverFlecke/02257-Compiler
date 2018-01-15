@@ -175,7 +175,7 @@ module CodeGeneration =
                 decsCode @ CSs vEnv' fEnv stms ([INCSP -(decsLength decs)] @ k)
             | Alt (GC gc)       ->
                 let labelEnd = newLabel ()
-                guardStm labelEnd vEnv fEnv gc ([Label labelEnd] @ k)
+                guardStm labelEnd vEnv fEnv gc ([CSTI -1; PRINTI; STOP; Label labelEnd] @ k)
             | Do (GC gc)        ->
                 let labelStart = newLabel ()
                 [Label labelStart] @ guardStm labelStart vEnv fEnv gc k
