@@ -72,7 +72,7 @@ System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 // Drawing trees
 open TreeDrawing
 
-let tree = Node ("abc", ([Node ("b", []); Node ("c", [Node ("e", []); Node ("f", [])]); Node ("d", [Node ("e", []); Node ("f", [])])]))
+let tree = Node ("a", ([Node ("b", []); Node ("c", [Node ("e", []); Node ("f", [])]); Node ("d", [Node ("g", []); Node ("h", [])])]))
 
 System.Console.WriteLine (string <| design tree)
 drawTree tree
