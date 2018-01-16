@@ -1,7 +1,6 @@
 namespace GuardedCommands.Util
 
 open System.IO
-open System
 
 module TreeDrawing =
 
@@ -40,14 +39,6 @@ module TreeDrawing =
            in x :: fitListL' (merge acc (moveExtent e x)) es
      in fitListL' [] es
 
-  // let rec fitListR es =
-  //   let rec fitListR' = curry <| function
-  //     | (_, [])        -> []
-  //     | (acc, (e::es)) ->
-  //     let x = -(fit e acc)
-  //      in x :: fitListR' (merge (moveExtent e x) acc) es
-  //    in List.rev (fitListR' [] (List.rev es))
-
   let flipExtent : Extent -> Extent = List.map (fun (p, q) -> (-q, -p))
   let neg x = -x
   let fitListR = List.rev << List.map neg << fitListL << List.map flipExtent << List.rev
@@ -69,10 +60,7 @@ module TreeDrawing =
   let rmoveto (x : float) (y : float) = string (100.0 * x) + " " + string -y + " rmoveto"
   let rlineto (x : float) (y : float) = string (100.0 * x) + " " + string -y + " rlineto"
 
-  let getPos =
-    function
-      | Node ((_, pos), _) -> pos
-      | _                  -> failwith "BOOM"
+  let getPos (Node ((_, pos), _)) = pos
 
   let rec drawChild t = rlineto 0.0 20.0 :: drawNode t @ [rmoveto 0.0 -20.0]
   and nextChild x = [rmoveto x 0.0]
@@ -81,26 +69,25 @@ module TreeDrawing =
     match t with
       | Node ((l, v), ls) ->
         let s = "(" + string l + ") dup stringwidth pop 2 div neg dup 0 rmoveto exch show 0 rmoveto"
-        let drawing = 
-          match ls with 
+        let drawing =
+          match ls with
             | []  -> []
             | _   ->
               let positions = List.map (float << getPos) ls
               let pos = List.head positions
               let diffs = List.map (abs << uncurry (-)) (List.pairwise positions)
               let children = drawChild (List.head ls) @ List.collect (fun (x, t) -> nextChild x @ drawChild t) (List.zip diffs (List.tail ls))
-              rlineto 0.0 10.0 :: [rmoveto -pos 0.0; rlineto (2.0 * pos) 0.0;] 
-                @ children 
+              rlineto 0.0 10.0 :: [rmoveto -pos 0.0; rlineto (2.0 * pos) 0.0;]
+                @ children
                 @ [rmoveto pos -10.0]
         s :: drawing
-        
+
   and drawTree (tree : Tree<string>) =
     let filename = "post.ps"
     File.WriteAllText(filename, "%!PS
-    /Courier
-    20 selectfont
-    200 750 moveto\n")
+/Courier
+20 selectfont
+300 750 moveto\n")
     File.AppendAllLines(filename, drawNode <| design tree)
-    File.AppendAllLines(filename, ["(a) show"])
     File.AppendAllLines(filename, ["stroke"; "showpage"])
     ()

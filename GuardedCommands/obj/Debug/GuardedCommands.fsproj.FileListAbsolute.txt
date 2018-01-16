@@ -59,3 +59,4 @@ C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedComman
 C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.xml
 C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.dll
 C:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.pdb
+c:\Users\olive\OneDrive\Courses\17E\02257\Compiler\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.fsprojResolveAssemblyReference.cache

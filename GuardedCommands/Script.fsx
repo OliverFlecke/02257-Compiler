@@ -10,6 +10,7 @@
 #load "CodeGenOpt.fs"
 #load "Util.fs"
 #load "TreeDrawing.fs"
+#load "TreeConversion.fs"
 
 open GuardedCommands.Util
 open GuardedCommands.Frontend.TypeCheck
@@ -33,7 +34,7 @@ System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 
 // let getBuffer (str:string) = LexBuffer<_>.FromBytes(Encoding.UTF8.GetBytes(str))
 
-// let filename = "tests/" + "QuickSortV1.gc";;
+// let filename = "tests/" + "Ex0.gc";;
 
 // System.Console.WriteLine ("Starting on " + filename)
 // System.Console.WriteLine ("\nParsing...\n")
@@ -71,8 +72,12 @@ System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 
 // Drawing trees
 open TreeDrawing
+open TreeConversion
 
-let tree = Node ("a", ([Node ("b", []); Node ("c", [Node ("e", []); Node ("f", [])]); Node ("d", [Node ("g", []); Node ("h", [])])]))
+let file = "tests/" + "Ex2.gc"
+let program = parseFromFile file;;
 
+// let tree = Node ("a", ([Node ("b", []); Node ("c", [Node ("e", []); Node ("f", [])]); Node ("d", [Node ("g", []); Node ("h", [])])]))
+let tree = convertProgram program
 System.Console.WriteLine (string <| design tree)
 drawTree tree

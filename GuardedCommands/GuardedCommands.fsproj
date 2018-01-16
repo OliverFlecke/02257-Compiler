@@ -57,6 +57,8 @@
     <None Include="Lexer.fsl" />
     <Compile Include="Parser.fs" />
     <Compile Include="Lexer.fs" />
+    <Compile Include="TreeDrawing.fs" />
+    <Compile Include="TreeConversion.fs" />
     <Compile Include="TypeCheck.fs" />
     <Compile Include="CodeGen.fs" />
     <Compile Include="CodeGenOpt.fs" />
