@@ -1,6 +1,7 @@
 namespace GuardedCommands.Util
 
 open System.IO
+open System
 
 module TreeDrawing =
 
@@ -57,37 +58,99 @@ module TreeDrawing =
 
   let design tree = fst (design' tree)
 
+  let splitString (str : string) = Array.toList <| str.Split([|' '|], StringSplitOptions.None)
+
+  // Compute depth
+  type Depth = int
+  type MaxMap = Map<Depth,int>
+
+  let depthTree tree =
+    let rec depthTree' tree =
+      let mapper (Node((l, _), ns)) = Node (List.length (splitString l), depthTree' ns)
+       in List.map mapper tree
+    List.head <| depthTree' [tree]
+
+  let rec fold f acc = function
+    | Node (label, ts) ->
+      let acc' = f acc (Node (label, ts))
+      let acc'' = Seq.fold (fold f) acc' ts
+      acc''
+
+  // Alternative name: LayerwiseFold
+  let rec depthawareFold f (acc, d) = function
+    | Node (label, ts) ->
+      let (acc', d') = f (acc, d) (Node (label, ts))
+      let (acc'', _) = Seq.fold (depthawareFold f) (acc', d') ts
+      (acc'', d)
+
+  let layerWiseMax =
+    let folder ((maxMap, d) : MaxMap * Depth) (Node (label, _)) =
+      let maxMap' =
+        match maxMap.TryFind d with
+          | Some a when label > a -> maxMap.Add (d, label)
+          | None                  -> maxMap.Add (d, label)
+          | _                     -> maxMap
+      (maxMap', d + 1)
+    depthawareFold folder (Map.empty, 0)
+
+  // Helper functions
   let rmoveto (x : float) (y : float) = string (100.0 * x) + " " + string -y + " rmoveto"
   let rlineto (x : float) (y : float) = string (100.0 * x) + " " + string -y + " rlineto"
 
   let getPos (Node ((_, pos), _)) = pos
 
-  let rec drawChild t = rlineto 0.0 20.0 :: drawNode t @ [rmoveto 0.0 -20.0]
+  // Drawing functions
+  let rec drawChild depthMap depth t = rlineto 0.0 20.0 :: drawNode depthMap (depth + 1) t @ [rmoveto 0.0 -20.0]
   and nextChild x = [rmoveto x 0.0]
 
-  and drawNode t : string list =
+  and drawNode depthMap depth t : string list =
     match t with
-      | Node ((l, v), ls) ->
-        let s = "(" + string l + ") dup stringwidth pop 2 div neg dup 0 rmoveto exch show 0 rmoveto"
+      | Node ((l : string, _), nodes) ->
+        let lines = splitString l
+        let spacing = (Map.find depth depthMap) - lines.Length
+        let label = List.map (fun x -> "0 -20 rmoveto (" + string x + ") dup stringwidth pop 2 div neg dup 0 rmoveto exch show 0 rmoveto") lines
         let drawing =
-          match ls with
+          match nodes with
             | []  -> []
             | _   ->
-              let positions = List.map (float << getPos) ls
+              let positions = List.map (float << getPos) nodes
               let pos = List.head positions
               let diffs = List.map (abs << uncurry (-)) (List.pairwise positions)
-              let children = drawChild (List.head ls) @ List.collect (fun (x, t) -> nextChild x @ drawChild t) (List.zip diffs (List.tail ls))
+              let children = drawChild depthMap depth (List.head nodes) @ List.collect (fun (x, t) -> nextChild x @ drawChild depthMap depth t) (List.zip diffs (List.tail nodes))
               rlineto 0.0 10.0 :: [rmoveto -pos 0.0; rlineto (2.0 * pos) 0.0;]
-                @ children
-                @ [rmoveto pos -10.0]
-        s :: drawing
+                @ children @ [rmoveto pos -10.0]
+        label @ [rmoveto 0.0 8.0]
+          @ if spacing > 0 && not nodes.IsEmpty then List.replicate spacing (rlineto 0.0 20.0) else []
+          @ drawing
+          @ if spacing > 0 && not nodes.IsEmpty then List.replicate spacing (rmoveto 0.0 -20.0) else []
+          @ [rmoveto 0.0 (-8.0 + -20.0 * (float label.Length))]
 
   and drawTree (tree : Tree<string>) =
     let filename = "post.ps"
-    File.WriteAllText(filename, "%!PS
-/Courier
-20 selectfont
-300 750 moveto\n")
-    File.AppendAllLines(filename, drawNode <| design tree)
+    let designTree = design tree
+    let depthMap = layerWiseMax <| depthTree designTree
+    // let left' = depthawareFold (fun (a, d) (Node ((_, v), _)) -> (min a (v + d), v + d)) (0.0, 0.0) designTree
+    let left = computeBound min [designTree]
+    // let right' = depthawareFold (fun (a, d) (Node ((_, v), _)) -> (max a (v + d), v + d)) (0.0, 0.0) designTree
+    let right = computeBound max [designTree]
+    let width = 55.0 * (right - left)
+    let height = 100 * (depth designTree)
+    File.WriteAllLines(filename, ["%!PS"])
+    File.AppendAllText(filename, "% Compile to PDF with:\n")
+    File.AppendAllText(filename, "% gs -sDEVICE=pdfwrite -dDEVICEWIDTHPOINTS=" + string (2.0 * width) + " -dDEVICEHEIGHTPOINTS=" + string height + " -dPDFFitPage -o output.pdf " + filename + "\n")
+    File.AppendAllLines(filename, ["/Courier";"20 selectfont"])
+    File.AppendAllText(filename, string width + " " + string height + " moveto\n")
+    File.AppendAllLines(filename, drawNode (fst depthMap) 0 designTree)
     File.AppendAllLines(filename, ["stroke"; "showpage"])
     ()
+  and computeBound f tree =
+    match tree with
+      | []                              -> 0.0
+      | Node ((_, v), [])       :: rest -> f v (computeBound f rest)
+      | Node ((_, v), children) :: rest -> f (v + computeBound f children) (computeBound f rest)
+  and depth tree =
+    let rec depth' d tree =
+      match tree with
+        | []                 -> d
+        | Node (_, ns) :: rs -> max (depth' (d + 1) ns) (depth' d rs)
+    depth' 0 [tree]

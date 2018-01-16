@@ -1,4 +1,5 @@
 ﻿#r @"..\packages\FsLexYacc.Runtime.7.0.6\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10\FsLexYacc.Runtime.dll";
+open System
 #r @".\bin\Debug\Machine.dll";
 #r @".\bin\Debug\VirtualMachine.dll";
 
@@ -74,10 +75,11 @@ System.IO.Directory.SetCurrentDirectory __SOURCE_DIRECTORY__;;
 open TreeDrawing
 open TreeConversion
 
-let file = "tests/" + "Ex2.gc"
+let file = "tests/" + "QuickSortV1.gc"
 let program = parseFromFile file;;
 
 // let tree = Node ("a", ([Node ("b", []); Node ("c", [Node ("e", []); Node ("f", [])]); Node ("d", [Node ("g", []); Node ("h", [])])]))
 let tree = convertProgram program
 System.Console.WriteLine (string <| design tree)
+
 drawTree tree

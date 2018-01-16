@@ -23,7 +23,9 @@ module TreeConversion =
         | Ass (acc, ex)       -> Node ("Acc", convertAccess acc :: [convertExpr ex])
         | Return (Some ex)    -> Node ("Return", [convertExpr ex])
         | Return None         -> Node ("Return", [])
+        | Alt (GC [])         -> Node ("Abort", [])
         | Alt (GC gc)         -> Node ("Alt", convertGuardedCommand gc)
+        | Do (GC [])          -> Node ("Skip", [])
         | Do (GC gc)          -> Node ("Do", convertGuardedCommand gc)
         | Block (decs, stms)  -> Node ("Block", convertDecs decs @ convertStms stms)
         | Call (s, exps)      -> Node ("Call " + s, convertExprs exps)
@@ -31,7 +33,7 @@ module TreeConversion =
   and convertGuardedCommand gc =
       match gc with
         | []                -> []
-        | (ex, stms) :: gc' -> convertExpr ex :: convertStms stms @ convertGuardedCommand gc'
+        | (ex, stms) :: gc' -> Node ("Guard", convertExpr ex :: convertStms stms) :: convertGuardedCommand gc'
 
   and convertDecs = List.map convertDec
   and convertDec = function
